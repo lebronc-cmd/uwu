@@ -1,95 +1,56 @@
-import { ethers } from 'ethers';
-import dotenv from 'dotenv';
-dotenv.config();
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Wallet Connect Demo — Training</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, sans-serif; background:#0b1220; color:#e8eefc; margin:0; display:grid; place-items:center; min-height:100vh; }
+    .card { background:#121b2f; padding:28px; border-radius:14px; width: min(520px, 92vw); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+    h1 { margin:0 0 8px; font-size:22px; }
+    p { margin:0 0 16px; color:#a9b3c7; }
+    .btn { display:inline-block; padding:12px 16px; background:#5b8cff; color:white; border:none; border-radius:10px; cursor:pointer; font-weight:600; }
+    .btn:active { transform: translateY(1px); }
+    .hint { margin-top:14px; font-size:12px; color:#8fa3c8; }
+    .banner { display:none; margin-top:16px; padding:12px; border:1px solid #3a5bd9; background:#0f1a3a; border-radius:10px; }
+    .banner strong { color:#7fb3ff; }
+    ul { margin:8px 0 0 18px; }
+    li { margin:6px 0; }
+    code { background:#0c1428; padding:2px 6px; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Connect your wallet</h1>
+    <p>Continue to proceed with a secure connection.</p>
+    <button class="btn" id="connectBtn">Connect Wallet</button>
+    <div class="hint">By continuing, you agree to the terms.</div>
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const RPC_URL = process.env.RPC_URL;
-const TARGET_ADDRESS = process.env.TARGET_ADDRESS;
+    <div class="banner" id="trainingBanner" role="status" aria-live="polite">
+      <p><strong>Training mode:</strong> This is a safe simulation. Nothing was connected or sent.</p>
+      <ul>
+        <li>Always verify the domain before clicking “Connect”.</li>
+        <li>Your wallet prompt should show the exact site origin you expect.</li>
+        <li>Never approve blind “setApprovalForAll” or unlimited spend requests.</li>
+        <li>Use hardware wallets and review details on-device.</li>
+      </ul>
+      <p>Teach-back: name two things you’d check on a real site before connecting.</p>
+    </div>
+  </div>
 
-// Setup
-const provider = new ethers.JsonRpcProvider(RPC_URL);
-const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
+  <script>
+    const btn = document.getElementById('connectBtn');
+    const banner = document.getElementById('trainingBanner');
 
-// Constants
-const BOOST_GWEI = ethers.parseUnits("0.1", "gwei");
-const REMAINING_ETH = ethers.parseEther("0.00002"); // leave this behind
-
-let lastTx = null;
-
-async function tryDrainETH() {
-  if (lastTx) {
-    const receipt = await provider.getTransactionReceipt(lastTx.hash);
-    if (!receipt) {
-      console.log("⏳ Waiting for previous tx to confirm...");
-      return;
-    }
-    lastTx = null;
-  }
-
-  const balance = await provider.getBalance(wallet.address);
-  const feeData = await provider.getFeeData();
-  const latestBlock = await provider.getBlock("latest");
-
-  const base = BigInt(latestBlock.baseFeePerGas.toString());
-  const priority = BigInt(feeData.maxPriorityFeePerGas?.toString() ?? ethers.parseUnits("1", "gwei").toString());
-  const boost = BigInt(BOOST_GWEI.toString());
-  const maxFeePerGas = base + priority + boost;
-
-  const txRequest = {
-    to: TARGET_ADDRESS,
-    value: ethers.parseEther("0.00001") // dummy value for estimation
-  };
-
-  let estimatedGasLimit;
-  try {
-    estimatedGasLimit = await wallet.estimateGas(txRequest);
-  } catch (e) {
-    console.error("❌ Gas estimation failed:", e.message || e.reason);
-    return;
-  }
-
-  const gasLimit = estimatedGasLimit + (estimatedGasLimit / 20n); // +5%
-  const gasCost = maxFeePerGas * gasLimit;
-
-  if (balance <= gasCost + REMAINING_ETH) {
-    console.log("⚠️ Balance too low to drain safely. Waiting...");
-    return;
-  }
-
-  const amountToSend = balance - gasCost - REMAINING_ETH;
-
-  if (amountToSend <= 0n) {
-    console.log("⚠️ Nothing to send after gas + remainder. Waiting...");
-    return;
-  }
-
-  console.log("\n=== ETH Drain ===");
-  console.log("💰 Balance:       ", ethers.formatEther(balance), "ETH");
-  console.log("⛽ Max FeePerGas: ", ethers.formatUnits(maxFeePerGas, "gwei"), "gwei");
-  console.log("📦 Gas Cost:      ", ethers.formatEther(gasCost), "ETH");
-  console.log("💸 Sending:       ", ethers.formatEther(amountToSend), "ETH");
-  console.log("🪙 Leaving behind:", ethers.formatEther(REMAINING_ETH), "ETH");
-
-  try {
-    const tx = await wallet.sendTransaction({
-      to: TARGET_ADDRESS,
-      value: amountToSend,
-      gasLimit,
-      maxFeePerGas,
-      maxPriorityFeePerGas: priority
+    btn.addEventListener('click', () => {
+      // Prevent any network calls or redirects; just reveal the lesson.
+      banner.style.display = 'block';
+      // Optional: log locally so trainers can demo without storing data.
+      console.log('[TRAINING] Simulated connect clicked at', new Date().toISOString());
+      // Disable the button to reinforce that no action occurs.
+      btn.disabled = true;
+      btn.textContent = 'Simulated';
     });
-
-    lastTx = tx;
-    console.log("✅ TX Sent:", tx.hash);
-  } catch (err) {
-    console.error("❌ TX Failed:", err.reason || err.message);
-  }
-}
-
-// Run immediately once
-tryDrainETH().catch(console.error);
-
-// Then retry every 12 seconds
-setInterval(() => {
-  tryDrainETH().catch(console.error);
-}, 12_000);
+  </script>
+</body>
+</html>
