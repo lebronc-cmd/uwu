@@ -2,148 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Phantom-style Connect — Training Only</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Strict CSP: no external calls, forms, or iframes -->
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self';
-                 img-src 'self' data:;
-                 script-src 'self';
-                 style-src 'self' 'unsafe-inline';
-                 connect-src 'none';
-                 frame-src 'none';
-                 form-action 'none';
-                 base-uri 'none'">
+  <title>Phantom — Training Mock (INERT)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    :root {
-      --bg:#0b1220; --card:#121b2f; --text:#e8eefc; --muted:#9fb1d3;
-      --accent:#7c5cff; --accent-2:#5b8cff; --border:#2a3657; --good:#34d399; --warn:#f59e0b;
-    }
-    html, body { height:100%; }
-    body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; display:grid; place-items:center; }
-    .wrap { width:min(720px, 92vw); display:grid; gap:16px; }
-    .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px; box-shadow:0 12px 30px rgba(0,0,0,.35); }
-    h1 { margin:0 0 6px; font-size:22px; }
-    p { margin:0 0 12px; color:var(--muted); }
-    .btn { display:inline-block; padding:12px 16px; border-radius:10px; border:1px solid transparent; cursor:pointer; font-weight:600; color:#fff; background:linear-gradient(90deg, var(--accent), var(--accent-2)); }
-    .btn:active { transform: translateY(1px); }
-    .hint { font-size:12px; color:var(--muted); }
-    .banner { display:none; margin-top:10px; padding:12px; border:1px solid var(--border); background:#0e1731; border-radius:10px; }
-    .banner strong { color:#a9c5ff; }
-    /* Modal */
-    .modal-backdrop { position:fixed; inset:0; background:rgba(6,10,22,.6); display:none; align-items:center; justify-content:center; }
-    .modal { width:min(420px, 92vw); background:#0f1730; border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.6); }
-    .modal-hd { padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); }
-    .modal-ttl { font-weight:700; }
-    .x { background:none; border:none; color:var(--muted); font-size:18px; cursor:pointer; }
-    .modal-bd { padding:16px; display:grid; gap:12px; }
-    .row { display:flex; align-items:flex-start; gap:10px; }
-    .pill { font-size:12px; color:#cdd7f0; background:#0c1428; border:1px solid var(--border); padding:6px 8px; border-radius:999px; }
-    .origin { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; }
-    .perm { display:flex; align-items:center; gap:8px; color:#cdd7f0; }
-    .dot { width:8px; height:8px; border-radius:50%; background:var(--warn); box-shadow:0 0 0 2px rgba(245,158,11,.15); }
-    .modal-ft { padding:14px 16px; border-top:1px solid var(--border); display:flex; gap:10px; justify-content:flex-end; }
-    .btn-secondary { background:#0c1428; border:1px solid var(--border); color:#cdd7f0; }
-    .btn-primary { background:linear-gradient(90deg, var(--accent-2), var(--accent)); }
-    .edu { font-size:12px; color:#a9b8d6; background:#0c1428; border:1px dashed var(--border); padding:10px; border-radius:10px; }
-    .check { color:var(--good); font-weight:700; }
+    /* Simple clean styling inspired by wallet login UIs */
+    :root { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#0b1220; color:#e6eef8;}
+    body{margin:0;display:flex;align-items:center;justify-content:center;height:100vh}
+    .card{width:380px;padding:28px;border-radius:14px;background:linear-gradient(180deg,#0f1724, #071020);box-shadow:0 8px 30px rgba(2,6,23,0.7)}
+    h1{margin:0 0 8px;font-size:20px}
+    p.lead{margin:0 0 18px;color:#9fb0d1;font-size:13px}
+    label{display:block;font-size:12px;margin:12px 0 6px;color:#bcd3f0}
+    textarea, input[type="text"]{width:100%;box-sizing:border-box;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:inherit;resize:vertical}
+    button{margin-top:14px;width:100%;padding:12px;border-radius:10px;border:none;background:#5b8cff;color:#02204a;font-weight:700;cursor:pointer}
+    button:active{transform:translateY(1px)}
+    .warning{margin-top:12px;padding:10px;border-radius:8px;background:#3b1b1b;color:#ffd7d7;font-size:13px}
+    .success{margin-top:12px;padding:10px;border-radius:8px;background:#112b14;color:#bbf0c6;font-size:13px;display:none}
+    .foot{margin-top:10px;font-size:12px;color:#84a0c6}
+    .logo{height:38px;width:38px;border-radius:8px;background:linear-gradient(135deg,#8dd1ff,#4b7bff);display:inline-block;margin-right:10px;vertical-align:middle}
+    .header{display:flex;align-items:center;margin-bottom:10px}
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center;display:none}
+    .modal .panel{background:#071020;padding:20px;border-radius:12px;color:#e6eef8;max-width:540px}
+    .small{font-size:12px;color:#9fb0d1;margin-top:8px}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="card">
-      <h1>Connect wallet</h1>
-      <p>This is a training-only demo of a Phantom-style connect flow. Nothing connects or leaves this page.</p>
-      <button class="btn" id="openModal">Connect with Phantom</button>
-      <div class="hint">On a real prompt, verify the site origin and requested permissions.</div>
-
-      <div class="banner" id="trainingBanner" role="status" aria-live="polite">
-        <p><strong>Training mode:</strong> No wallet APIs were called. No data was sent. This is a safe simulation.</p>
-        <ul>
-          <li><span class="check">Check:</span> Domain matches what you expect (no typos, correct TLD).</li>
-          <li><span class="check">Check:</span> Wallet prompt shows the same origin you see in the address bar.</li>
-          <li><span class="check">Check:</span> Be skeptical of unlimited spend approvals or broad permissions.</li>
-        </ul>
+  <div class="card" role="main" aria-labelledby="title">
+    <div class="header">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1 id="title">Phantom — Training Mock</h1>
+        <p class="lead">This is an inert demo page for security training. It does not send data anywhere.</p>
       </div>
     </div>
 
-    <div class="card edu">
-      <strong>What to look for on real prompts:</strong>
-      <div>- Origin should exactly match the site you intended: <span class="origin" id="eduOrigin"></span></div>
-      <div>- Permissions should be minimal: read address only unless you intend to sign.</div>
-      <div>- Hardware wallets add an extra review step on-device.</div>
-    </div>
-  </main>
+    <form id="mockForm" autocomplete="off" novalidate>
+      <label for="seed">Enter seed phrase (demo)</label>
+      <textarea id="seed" rows="4" placeholder="do NOT enter a real seed phrase here"></textarea>
 
-  <!-- Modal -->
-  <div class="modal-backdrop" id="backdrop" aria-hidden="true">
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
-      <header class="modal-hd">
-        <div class="modal-ttl" id="mTitle">Connect to site</div>
-        <button class="x" id="closeModal" aria-label="Close">×</button>
-      </header>
-      <div class="modal-bd">
-        <div class="row">
-          <span class="pill">Phantom</span>
-          <span class="pill">Simulation</span>
-        </div>
-        <div>
-          <div class="hint">Site requesting connection</div>
-          <div class="origin" id="reqOrigin"></div>
-        </div>
-        <div>
-          <div class="hint">This site will be able to</div>
-          <div class="perm"><span class="dot"></span> View your public wallet address</div>
-          <div class="perm"><span class="dot"></span> See connected network</div>
-          <div class="perm"><span class="dot"></span> Request a signature (you can decline)</div>
-        </div>
-        <div class="banner" style="display:none" id="simNote">
-          <strong>Simulation only:</strong> Approve here does not connect. It reveals the training banner on the page.
-        </div>
+      <label for="password">Password (demo)</label>
+      <input id="password" type="text" placeholder="demo password" />
+
+      <button id="submitBtn" type="submit">Connect</button>
+
+      <div class="warning" id="warning">
+        This mock is <strong>inert</strong>. It will not send your input anywhere but will immediately clear it.
       </div>
-      <footer class="modal-ft">
-        <button class="btn btn-secondary" id="cancel">Cancel</button>
-        <button class="btn btn-primary" id="approve">Approve (Simulated)</button>
-      </footer>
-    </section>
+
+      <div class="success" id="success">
+        Demo result: This was a training page. <strong>Do not enter real seed phrases or private keys.</strong>
+      </div>
+
+      <div class="foot small">
+        Use this page only for education. If you want a more advanced legitimate training setup, see alternatives below.
+      </div>
+    </form>
+  </div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="panel">
+      <h2>Training notice</h2>
+      <p id="modalText">This is a defensive training mock. Any text entered has been cleared and was not transmitted. Never enter real secret material on untrusted pages.</p>
+      <p class="small">Suggestions: 1) Show this to trainees and explain how phishing tries to trick them. 2) Use a password manager or hardware wallet. 3) Practice domain checks and punycode detection.</p>
+      <div style="text-align:right;margin-top:12px">
+        <button id="closeModal" style="padding:8px 12px;border-radius:8px;border:none;background:#5b8cff;color:#02204a;font-weight:700;cursor:pointer">Close</button>
+      </div>
+    </div>
   </div>
 
   <script>
-    const openBtn = document.getElementById('openModal');
-    const closeBtn = document.getElementById('closeModal');
-    const cancelBtn = document.getElementById('cancel');
-    const approveBtn = document.getElementById('approve');
-    const backdrop = document.getElementById('backdrop');
-    const banner = document.getElementById('trainingBanner');
-    const simNote = document.getElementById('simNote');
-    const originTxt = location.protocol + '//' + location.host;
-    const reqOrigin = document.getElementById('reqOrigin');
-    const eduOrigin = document.getElementById('eduOrigin');
+    // SAFETY: this page is intentionally inert. It NEVER sends data to servers.
+    const form = document.getElementById('mockForm');
+    const seed = document.getElementById('seed');
+    const pwd = document.getElementById('password');
+    const modal = document.getElementById('modal');
+    const success = document.getElementById('success');
 
-    reqOrigin.textContent = originTxt;
-    eduOrigin.textContent = originTxt;
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault();
 
-    function openModal() {
-      backdrop.style.display = 'flex';
-      backdrop.setAttribute('aria-hidden', 'false');
-      simNote.style.display = 'block';
-    }
-    function closeModal() {
-      backdrop.style.display = 'none';
-      backdrop.setAttribute('aria-hidden', 'true');
-    }
+      // Immediately clear all inputs — do not store or transmit.
+      seed.value = '';
+      pwd.value = '';
 
-    openBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
+      // Show training modal + success box.
+      modal.style.display = 'flex';
+      success.style.display = 'block';
 
-    approveBtn.addEventListener('click', () => {
-      // Do NOT call any wallet APIs. Do NOT navigate. Reveal training only.
-      console.log('[TRAINING] Phantom-style approve clicked at', new Date().toISOString());
-      banner.style.display = 'block';
-      openBtn.disabled = true;
-      openBtn.textContent = 'Connected (Simulated)';
-      closeModal();
+      // Accessibility: focus the modal close button.
+      document.getElementById('closeModal').focus();
+    });
+
+    // Close modal handler
+    document.getElementById('closeModal').addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Extra protection: prevent accidental paste of long content
+    seed.addEventListener('paste', (e) => {
+      // cancel paste to discourage real seed entry
+      e.preventDefault();
+      alert('Paste disabled in this training mock. Do NOT paste real seed phrases here.');
+    });
+
+    // Prevent accidental right-click "save as" or form submission default behaviors that might be misused.
+    window.addEventListener('beforeunload', (e) => {
+      // no-op: just a gentle reminder if they try to close
     });
   </script>
 </body>
