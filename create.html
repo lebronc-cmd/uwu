@@ -174,7 +174,43 @@
 <div class="mt-8 pt-8 border-t border-border-primary text-center text-text-disabled text-sm">© <!-- -->2025<!-- --> RugBot. All rights reserved.</div>
 </div>
 </footer>
+  <button id="showPopupBtn">Create Token</button>
 
+  <!-- Popup -->
+  <div id="createTokenPopup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn">&times;</span>
+      <p>Popup content goes here...</p>
+    </div>
+  </div>
+
+  <!-- 🔻 Place script here, before </body> -->
+  <script>
+    const popup = document.getElementById('createTokenPopup');
+    const showBtn = document.getElementById('showPopupBtn');
+    const closeBtns = document.querySelectorAll('#createTokenPopup .close-btn');
+
+    // 🚫 Disable popup — do nothing when "Create Token" is clicked
+    showBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('"Create Token" click disabled');
+      // popup.style.display = 'block'; ← Not called
+    });
+
+    // ✅ Close popup when close button is clicked
+    closeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        popup.style.display = 'none';
+      });
+    });
+
+    // ✅ Optional: Click outside to close
+    window.addEventListener('click', (event) => {
+      if (event.target === popup) {
+        popup.style.display = 'none';
+      }
+    });
+  </script> 
 <div aria-label="Notifications (F8)" role="region" style="pointer-events:none" tabindex="-1">
 <ol class="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]" tabindex="-1">
 </ol>
