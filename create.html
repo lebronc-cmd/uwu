@@ -174,6 +174,39 @@
 <div class="mt-8 pt-8 border-t border-border-primary text-center text-text-disabled text-sm">© <!-- -->2025<!-- --> RugBot. All rights reserved.</div>
 </div>
 </footer>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const popup = document.getElementById('createTokenPopup');
+    const showBtn = document.getElementById('showPopupBtn');
+    const closeBtns = document.querySelectorAll('#createTokenPopup .close-btn');
+
+    if (!showBtn) {
+      console.warn("Create Token button (#showPopupBtn) not found.");
+      return;
+    }
+
+    // Disable popup behavior
+    showBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log("Create Token button is disabled.");
+    });
+
+    // Allow popup to close (in case it's opened some other way)
+    closeBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        popup.style.display = 'none';
+      });
+    });
+
+    // Optional: Click outside popup to close
+    window.addEventListener('click', function (e) {
+      if (e.target === popup) {
+        popup.style.display = 'none';
+      }
+    });
+  });
+</script>
 
 <div aria-label="Notifications (F8)" role="region" style="pointer-events:none" tabindex="-1">
 <ol class="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]" tabindex="-1">
