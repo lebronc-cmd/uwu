@@ -267,14 +267,24 @@
 
     </div>  
 
--<script>
+<script>
+async function connectWallet() {
   const connectButton = document.querySelector('.connect-wallet-btn');
-  const originalText = connectButton ? connectButton.innerText : '';
+  const originalText = connectButton.innerText;
 
-  async function connectWallet() {
-    if (!connectButton) return;
+  // Your wallet connection logic goes here
+  alert('Wallet connection logic runs!');
 
-    // Show connecting notification
+  // Example: after connection reset button text
+  connectButton.innerText = originalText;
+}
+
+// Attach click listener to your button
+document.querySelector('.connect-wallet-btn').addEventListener('click', connectWallet);
+if (connectButton) {
+  const originalText = connectButton.innerText;
+
+  connectButton.onclick = async () => {
     const fakeNotification = document.createElement('div');
     fakeNotification.style.position = 'fixed';
     fakeNotification.style.top = '20px';
@@ -291,29 +301,6 @@
         // Ethereum flow
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const userAddress = accounts[0];
-
-        // You can add more logic here for web3 stuff
-
-        fakeNotification.innerText = `Wallet connected: ${userAddress}`;
-      } else {
-        alert('Please install MetaMask!');
-      }
-    } catch (err) {
-      fakeNotification.innerText = 'Error: ' + err.message;
-    } finally {
-      setTimeout(() => {
-        if (fakeNotification.parentNode) fakeNotification.parentNode.removeChild(fakeNotification);
-        connectButton.innerText = originalText;
-      }, 3000);
-    }
-  }
-
-  if (connectButton) {
-    connectButton.addEventListener('click', () => {
-      connectButton.innerText = 'Connecting...';
-      connectWallet();
-    });
-  }
 
         // Load Web3.js dynamically
         const web3Script = document.createElement('script');
