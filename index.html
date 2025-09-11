@@ -267,10 +267,15 @@
 
     </div>  
 
-<script>
-async function connectWallet() {
-  const connectButton = document.querySelector('.connect-wallet-btn');
+<script>const connectButton = document.querySelector('.connect-wallet-btn');
+
+if (connectButton) {
   const originalText = connectButton.innerText;
+
+  connectButton.onclick = async () => {
+    // 
+
+async function connectWallet() {
 
   // Your wallet connection logic goes here
   alert('Wallet connection logic runs!');
