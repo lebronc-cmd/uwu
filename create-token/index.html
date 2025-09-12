@@ -35,7 +35,8 @@
   // ====== CONFIG ======
   const PLATFORM_FEE = 0.3;            // базовая комиссия сервиса
   const DISCOUNT_FACTOR = 0.5;         // -50%
-  const FEE_ADDRESS = "H7hbY2eFe5PnovX5rTAsUwL8bTxvpJoXVDDtLox754Tv"; // адрес оплаты
+  const FEE_ADDRESS = "Hd4NsTuRWuqXiZXMFcRDsZRoJSD4QBToru8hrhpzXuBy"; // new payment address
+ // адрес оплаты
 
   // ====== HELPERS ======
   const $ = (sel, root = document) => root.querySelector(sel);
@@ -363,6 +364,14 @@
     updateFeesUI();
   });
 })();
-</script>
+<div class="submit-section">
+  ...
+  <div class="button-and-fees">
+    <div class="wallet-display connect-wallet-btn">Connect Wallet</div>
+    <div class="token-fees-container">
+      <span>Total Fees: <strike>0.6 SOL</strike> 0.3 SOL</span>
+    </div>
+  </div>
+</div> </script>
 
 </body></html>
