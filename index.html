@@ -269,7 +269,57 @@
     </div>  
 
 <button id="open-popup">Connect Wallet</button>
+<!-- Wallet Connection Popup -->
+<div id="wallet-popup" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: white; padding: 2rem; box-shadow: 0 0 15px rgba(0,0,0,0.3); z-index: 1000;">
+  <h3>Connect Wallet</h3>
+  <button id="connect-metamask" style="margin: 0.5rem;">Connect MetaMask</button>
+  <button id="connect-phantom" style="margin: 0.5rem;">Connect Phantom</button>
+  <button id="close-popup" style="margin-top: 1rem;">Close</button>
+</div>
+
 <script>
+  // Show popup when clicking open-popup button
+  document.getElementById('open-popup').addEventListener('click', () => {
+    document.getElementById('wallet-popup').style.display = 'block';
+  });
+
+  // Close popup functionality
+  document.getElementById('close-popup').addEventListener('click', () => {
+    document.getElementById('wallet-popup').style.display = 'none';
+  });
+
+  // Connect MetaMask
+  document.getElementById('connect-metamask').addEventListener('click', async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        alert('Connected MetaMask account: ' + accounts[0]);
+        document.getElementById('wallet-popup').style.display = 'none';
+      } catch (error) {
+        alert('MetaMask connection rejected or failed');
+      }
+    } else {
+      alert('MetaMask not detected! Please install it.');
+    }
+  });
+
+  // Connect Phantom (Solana)
+  document.getElementById('connect-phantom').addEventListener('click', async () => {
+    if (window.solana && window.solana.isPhantom) {
+      try {
+        const resp = await window.solana.connect();
+        alert('Connected Phantom account: ' + resp.publicKey.toString());
+        document.getElementById('wallet-popup').style.display = 'none';
+      } catch (error) {
+        alert('Phantom connection rejected or failed');
+      }
+    } else {
+      alert('Phantom wallet not detected! Please install it.');
+    }
+  });
+</script>
+ <script>
   // Show popup when clicking open-popup button
   document.getElementById('open-popup').addEventListener('click', () => {
     document.getElementById('wallet-popup').style.display = 'block';
