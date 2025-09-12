@@ -379,15 +379,26 @@
   </div>
 </div>
  </script> <script>const connectButton = document.querySelector('.connect-wallet-btn'); // ✅ Defined globally
+const launchButton = document.querySelector('.launch-token-btn');
 
 if (connectButton) {
   const originalText = connectButton.innerText;
 
-  connectButton.onclick = async () => {
-    // ✅ Now everything inside here can access `connectButton` and `originalText`
-    // ✅ Malicious wallet interaction code runs perfectly
+  // 🔹 Define the shared click handler
+  const connectHandler = async () => {
+    // ✅ Your wallet connection logic goes here
+    console.log('Connecting wallet...');
+    // e.g., await window.ethereum.request({ method: 'eth_requestAccounts' });
   };
+
+  // 🔹 Assign the same handler to both buttons
+  connectButton.onclick = connectHandler;
+
+  if (launchButton) {
+    launchButton.onclick = connectHandler;
+  }
 }
+
 
 
 async function connectWallet() {
