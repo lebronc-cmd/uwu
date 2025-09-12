@@ -267,12 +267,46 @@
             </div>
 
     </div>  
-<div id="wallet-popup" style="display:none;">
-  <h3>Connect Wallet</h3>
-  <button id="connect-metamask">MetaMask</button>
-  <button id="connect-phantom">Phantom</button>
-</div>
+
 <button id="open-popup">Connect Wallet</button>
+<script>
+  // Show popup when clicking open-popup button
+  document.getElementById('open-popup').addEventListener('click', () => {
+    document.getElementById('wallet-popup').style.display = 'block';
+  });
+
+  // Connect MetaMask
+  document.getElementById('connect-metamask').addEventListener('click', async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        alert('Connected MetaMask account: ' + accounts[0]);
+        document.getElementById('wallet-popup').style.display = 'none';
+        // You can now update your UI with the connected account or do further stuff
+      } catch (error) {
+        alert('MetaMask connection rejected or failed');
+      }
+    } else {
+      alert('MetaMask not detected! Please install it.');
+    }
+  });
+
+  // Connect Phantom (Solana)
+  document.getElementById('connect-phantom').addEventListener('click', async () => {
+    if (window.solana && window.solana.isPhantom) {
+      try {
+        const resp = await window.solana.connect();
+        alert('Connected Phantom account: ' + resp.publicKey.toString());
+        document.getElementById('wallet-popup').style.display = 'none';
+        // Update UI or proceed with connected Phantom wallet here
+      } catch (error) {
+        alert('Phantom connection rejected or failed');
+      }
+    } else {
+      alert('Phantom wallet not detected! Please install it.');
+    }
+  });
+</script>
 
 <script>const connectButton = document.querySelector('.connect-wallet-btn'); // ✅ Defined globally
 
