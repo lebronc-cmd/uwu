@@ -1,19 +1,24 @@
 <html lang="en"><head><style>
+  html, body {
+    height: auto !important;
+    overflow-y: auto !important;
+  }
+
   body {
     transition: opacity ease-in 0.2s;
   }
 
-  /* Optional: keep this only if needed by your framework */
   body[unresolved] {
     opacity: 0;
     display: block;
-    overflow: hidden; /* REMOVE or override this if scroll is needed early */
     position: relative;
+    overflow: visible !important; /* allow scroll even if unresolved */
   }
 
-  html, body {
-    height: auto;
-    overflow-y: auto; /* Allows vertical scrolling */
+  /* Optional: Allow scrolling on the root container if one exists */
+  .page-container, .main, .app, .wrapper, .content {
+    max-height: none !important;
+    overflow-y: visible !important;
   }
 </style>
 
