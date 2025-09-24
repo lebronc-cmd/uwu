@@ -400,10 +400,7 @@
                         <span class="separator"></span>
                         <a class="policy-link" href="privacy-policy.html" data-discover="true">Privacy Policy</a>
                     </div>
-                </div><button class="connect-wallet-btn" style="margin: 20px; padding: 10px 20px;">
-  Connect Wallet
-</button>
-
+    
 <!-- Popup Modal -->
 <div id="connectWallet" class="popup-modal" style="display: none;">
     <div class="popup-content">
@@ -671,32 +668,21 @@ if (connectButton) {
 
 <!-- Popup Script -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const popup = document.getElementById('connectWallet');
-    const openBtn = document.querySelector('.connect-wallet-btn');
-    const closeBtn = document.getElementById('closeConnectWallet');
+document.addEventListener("DOMContentLoaded", function () {
+  const popup = document.getElementById('connectWallet');
+  const openBtn = document.querySelector('.connect-wallet-btn');
+  const closeBtn = document.getElementById('closeConnectWallet');
 
-    if (openBtn) {
-      openBtn.addEventListener('click', function (e) {
-        e.stopPropagation(); // prevent any other wallet connect handlers
-        e.preventDefault();
-        popup.style.display = 'block';
-      });
-    }
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function () {
-        popup.style.display = 'none';
-      });
-    }
-
-    window.addEventListener('click', function (e) {
-      if (e.target === popup) {
-        popup.style.display = 'none';
-      }
+  if (openBtn) {
+    openBtn.addEventListener('click', function (e) {
+      e.stopPropagation(); // prevent any other wallet connect handlers
+      e.preventDefault();
+      popup.style.display = 'flex'; // Make sure modal centers
     });
-  });
-</script>
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListen
 
   </body>
 </html>
