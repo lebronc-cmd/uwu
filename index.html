@@ -674,14 +674,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (openBtn) {
     openBtn.addEventListener('click', function (e) {
-      e.stopPropagation(); // prevent any other wallet connect handlers
       e.preventDefault();
-      popup.style.display = 'flex'; // Make sure modal centers
+      popup.style.display = 'flex'; // Use flex for modal centering
     });
   }
 
   if (closeBtn) {
-    closeBtn.addEventListen </script>
+    closeBtn.addEventListener('click', function () {
+      popup.style.display = 'none';
+    });
+  }
+
+  window.addEventListener('click', function (e) {
+    if (e.target === popup) {
+      popup.style.display = 'none';
+    }
+  });
+});  </script>
 
   </body>
 </html>
