@@ -170,6 +170,24 @@
   color: #4e9eff;
   text-decoration: none;
 }
+    .wallet-dropdown {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+    }
+
+    .wallet-display {
+      padding: 10px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #e0e0e0;
+      border-radius: 6px;
+      text-decoration: none;
+    }
 </style>
     </head>
     <body>
@@ -413,7 +431,12 @@
 
 
 <!-- Popup Script -->
-
+<script>
+  function connectWallet() {
+    alert("Wallet connected!");
+    // Add your wallet connection logic here
+  }
+</script> 
 
   </body>
 </html>
